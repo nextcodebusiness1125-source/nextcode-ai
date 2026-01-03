@@ -1,0 +1,1140 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEXTCODE AI v7.8 - Advanced Intelligence System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .background-animation {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: rgba(102, 126, 234, 0.5);
+            border-radius: 50%;
+            animation: float 20s infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); }
+            50% { transform: translateY(-100vh) translateX(50px); }
+        }
+
+        .container {
+            width: 95%;
+            max-width: 1200px;
+            height: 90vh;
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 24px;
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.4);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            z-index: 1;
+            backdrop-filter: blur(10px);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo {
+            width: 55px;
+            height: 55px;
+            background: white;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            font-weight: bold;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .title-section h1 {
+            font-size: 26px;
+            font-weight: 700;
+            margin-bottom: 3px;
+        }
+
+        .title-section p {
+            font-size: 13px;
+            opacity: 0.95;
+        }
+
+        .version-badge {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+
+        .status {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 5px;
+        }
+
+        .status-online {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: #4ade80;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+            box-shadow: 0 0 10px #4ade80;
+        }
+
+        .neural-status {
+            font-size: 11px;
+            opacity: 0.9;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.2); }
+        }
+
+        .chat-area {
+            flex: 1;
+            overflow-y: auto;
+            padding: 30px;
+            background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+        }
+
+        .chat-area::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .chat-area::-webkit-scrollbar-track {
+            background: #e2e8f0;
+        }
+
+        .chat-area::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+
+        .message {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 12px;
+            animation: fadeIn 0.4s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .message.user {
+            flex-direction: row-reverse;
+        }
+
+        .avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+            font-size: 16px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        .avatar.ai {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .avatar.user {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+        }
+
+        .message-content {
+            max-width: 70%;
+            padding: 16px 22px;
+            border-radius: 20px;
+            line-height: 1.7;
+            font-size: 15px;
+        }
+
+        .message.ai .message-content {
+            background: white;
+            color: #1e293b;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e2e8f0;
+        }
+
+        .message.user .message-content {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .learning-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .learning-modal.active {
+            display: flex;
+        }
+
+        .learning-modal-content {
+            background: white;
+            border-radius: 24px;
+            padding: 40px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .learning-modal h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .learning-modal p {
+            color: #64748b;
+            margin-bottom: 25px;
+            font-size: 14px;
+        }
+
+        .learning-question {
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            border: 2px solid #e2e8f0;
+        }
+
+        .learning-question strong {
+            color: #1e293b;
+            font-size: 15px;
+        }
+
+        .learning-question-text {
+            color: #667eea;
+            font-weight: 600;
+            margin-top: 5px;
+        }
+
+        .learning-input-group {
+            margin-bottom: 20px;
+        }
+
+        .learning-input-group label {
+            display: block;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .learning-input-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 14px;
+            font-family: inherit;
+            resize: vertical;
+            min-height: 80px;
+            transition: all 0.3s;
+        }
+
+        .learning-input-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .learning-buttons {
+            display: flex;
+            gap: 12px;
+        }
+
+        .learning-btn {
+            flex: 1;
+            padding: 14px 20px;
+            border: none;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .learning-btn-save {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .learning-btn-save:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .learning-btn-cancel {
+            background: #f1f5f9;
+            color: #64748b;
+        }
+
+        .learning-btn-cancel:hover {
+            background: #e2e8f0;
+        }
+
+        .learning-success {
+            background: #d1fae5;
+            border: 2px solid #34d399;
+            color: #065f46;
+            padding: 12px 16px;
+            border-radius: 12px;
+            margin-top: 15px;
+            font-weight: 600;
+            text-align: center;
+            display: none;
+        }
+
+        .learning-success.show {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .thinking-process {
+            font-size: 12px;
+            color: #64748b;
+            margin-top: 8px;
+            font-style: italic;
+        }
+
+        .typing-indicator {
+            display: none;
+            gap: 5px;
+            padding: 16px 22px;
+        }
+
+        .typing-indicator.active {
+            display: flex;
+        }
+
+        .typing-dot {
+            width: 9px;
+            height: 9px;
+            background: #94a3b8;
+            border-radius: 50%;
+            animation: typing 1.4s infinite;
+        }
+
+        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes typing {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-12px); }
+        }
+
+        .input-area {
+            padding: 25px 30px;
+            background: white;
+            border-top: 2px solid #e2e8f0;
+        }
+
+        .input-container {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        #userInput {
+            flex: 1;
+            padding: 16px 22px;
+            border: 2px solid #e2e8f0;
+            border-radius: 28px;
+            font-size: 15px;
+            outline: none;
+            transition: all 0.3s;
+            background: #f8fafc;
+        }
+
+        #userInput:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+            background: white;
+        }
+
+        #sendButton {
+            padding: 16px 35px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 28px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        #sendButton:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+        }
+
+        #sendButton:active {
+            transform: translateY(0);
+        }
+
+        .welcome-message {
+            text-align: center;
+            padding: 80px 30px;
+            color: #64748b;
+        }
+
+        .welcome-message h2 {
+            font-size: 32px;
+            color: #1e293b;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .welcome-message .subtitle {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .ai-capabilities {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        .capability-card {
+            background: white;
+            padding: 20px;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .capability-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.2);
+            border-color: #667eea;
+        }
+
+        .capability-card h3 {
+            font-size: 16px;
+            margin-bottom: 8px;
+            color: #1e293b;
+        }
+
+        .capability-card p {
+            font-size: 13px;
+            color: #64748b;
+        }
+
+        .suggestions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+            margin-top: 35px;
+        }
+
+        .suggestion-chip {
+            padding: 12px 24px;
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 24px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .suggestion-chip:hover {
+            border-color: #667eea;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                width: 100%;
+                height: 100vh;
+                border-radius: 0;
+            }
+
+            .message-content {
+                max-width: 85%;
+            }
+
+            .header {
+                padding: 20px;
+            }
+
+            .title-section h1 {
+                font-size: 20px;
+            }
+
+            .ai-capabilities {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-animation" id="particles"></div>
+    
+    <div class="container">
+        <div class="header">
+            <div class="header-left">
+                <div class="logo">🧠</div>
+                <div class="title-section">
+                    <h1>NEXTCODE AI <span class="version-badge">v7.8</span></h1>
+                    <p>Advanced Neural Intelligence System</p>
+                </div>
+            </div>
+            <div class="status">
+                <div class="status-online">
+                    <div class="status-dot"></div>
+                    <span>온라인</span>
+                </div>
+                <div class="neural-status">Neural Network: Active</div>
+            </div>
+        </div>
+
+        <div class="chat-area" id="chatArea">
+            <div class="welcome-message">
+                <h2>🚀 NEXTCODE AI v7.8에 오신 것을 환영합니다!</h2>
+                <p class="subtitle">100억 가지 경우의 수로 학습된 차세대 지능형 어시스턴트</p>
+                
+                <div class="ai-capabilities">
+                    <div class="capability-card">
+                        <h3>🎯 초정밀 분석</h3>
+                        <p>고급 패턴 인식과 상황 이해</p>
+                    </div>
+                    <div class="capability-card">
+                        <h3>💡 창의적 솔루션</h3>
+                        <p>혁신적인 문제 해결 접근</p>
+                    </div>
+                    <div class="capability-card">
+                        <h3>🔬 심층 학습</h3>
+                        <p>100억+ 데이터 학습 완료</p>
+                    </div>
+                    <div class="capability-card">
+                        <h3>⚡ 실시간 적응</h3>
+                        <p>대화 맥락 완벽 이해</p>
+                    </div>
+                </div>
+
+                <div class="suggestions">
+                    <div class="suggestion-chip" onclick="sendSuggestion('복잡한 알고리즘 설계 도와줘')">🧩 알고리즘 설계</div>
+                    <div class="suggestion-chip" onclick="sendSuggestion('최신 AI 트렌드 분석해줘')">📊 AI 트렌드</div>
+                    <div class="suggestion-chip" onclick="sendSuggestion('프로젝트 아키텍처 추천')">🏗️ 아키텍처</div>
+                    <div class="suggestion-chip" onclick="sendSuggestion('코드 최적화 방법')">⚡ 최적화</div>
+                    <div class="suggestion-chip" onclick="sendSuggestion('데이터 구조 비교 분석')">📈 데이터 구조</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="input-area">
+            <div class="input-container">
+                <input 
+                    type="text" 
+                    id="userInput" 
+                    placeholder="무엇이든 물어보세요... (v7.8 Neural Engine)" 
+                    onkeypress="handleKeyPress(event)"
+                >
+                <button id="sendButton" onclick="sendMessage()">전송</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 학습 모달 -->
+    <div class="learning-modal" id="learningModal">
+        <div class="learning-modal-content">
+            <h2>🎓 AI 학습 모드</h2>
+            <p>이 질문에 대한 답변을 학습시켜주세요!</p>
+            
+            <div class="learning-question">
+                <strong>사용자 질문:</strong>
+                <div class="learning-question-text" id="learningQuestion"></div>
+            </div>
+
+            <div class="learning-input-group">
+                <label for="learningAnswer">AI가 답변할 내용:</label>
+                <textarea 
+                    id="learningAnswer" 
+                    placeholder="예: 네, 무엇을 도와드릴까요?"
+                ></textarea>
+            </div>
+
+            <div class="learning-input-group">
+                <label for="learningThinking">사고 과정 (선택사항):</label>
+                <textarea 
+                    id="learningThinking" 
+                    placeholder="예: 간단한 호칭 인식 → 정중한 응답"
+                    style="min-height: 60px;"
+                ></textarea>
+            </div>
+
+            <div class="learning-buttons">
+                <button class="learning-btn learning-btn-cancel" onclick="closeLearningModal()">
+                    취소
+                </button>
+                <button class="learning-btn learning-btn-save" onclick="saveLearnedResponse()">
+                    💾 학습시키기
+                </button>
+            </div>
+
+            <div class="learning-success" id="learningSuccess">
+                ✅ 학습 완료! 이제 이 질문에 답변할 수 있습니다.
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 배경 파티클 생성
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 30; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 20 + 's';
+            particle.style.animationDuration = (15 + Math.random() * 10) + 's';
+            particlesContainer.appendChild(particle);
+        }
+
+        const chatArea = document.getElementById('chatArea');
+        const userInput = document.getElementById('userInput');
+        const learningModal = document.getElementById('learningModal');
+        const learningQuestion = document.getElementById('learningQuestion');
+        const learningAnswer = document.getElementById('learningAnswer');
+        const learningThinking = document.getElementById('learningThinking');
+        const learningSuccess = document.getElementById('learningSuccess');
+
+        // 사용자 정의 학습 데이터 저장소
+        let customLearning = {};
+        let currentUnknownQuestion = '';
+
+        // 핵심 함수들 먼저 정의
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        function sendSuggestion(text) {
+            userInput.value = text;
+            sendMessage();
+        }
+
+        // 학습 모달 열기
+        function openLearningModal(question) {
+            currentUnknownQuestion = question;
+            learningQuestion.textContent = question;
+            learningAnswer.value = '';
+            learningThinking.value = '';
+            learningSuccess.classList.remove('show');
+            learningModal.classList.add('active');
+        }
+
+        // 학습 모달 닫기
+        function closeLearningModal() {
+            learningModal.classList.remove('active');
+            currentUnknownQuestion = '';
+        }
+
+        // 학습 데이터 저장
+        function saveLearnedResponse() {
+            const answer = learningAnswer.value.trim();
+            const thinking = learningThinking.value.trim() || '사용자 정의 학습 → 맞춤 응답 생성';
+
+            if (!answer) {
+                alert('답변 내용을 입력해주세요!');
+                return;
+            }
+
+            // 답변에 욕설이 포함되어 있는지 확인
+            if (containsProfanity(answer)) {
+                alert('⚠️ 답변에 부적절한 언어가 포함되어 있습니다!\n\n건전하고 예의바른 답변을 입력해주세요. 😊');
+                return;
+            }
+
+            // 학습 데이터 저장
+            customLearning[currentUnknownQuestion.toLowerCase()] = {
+                response: answer,
+                thinking: thinking,
+                learnedAt: new Date().toLocaleString('ko-KR')
+            };
+
+            // 성공 메시지 표시
+            learningSuccess.classList.add('show');
+
+            // 2초 후 모달 닫기
+            setTimeout(() => {
+                closeLearningModal();
+                // 학습된 내용으로 즉시 응답
+                hideTyping();
+                addMessage(answer, false, thinking);
+            }, 1500);
+        }
+
+        // v7.8 고급 응답 데이터베이스 (100억 경우의 수 시뮬레이션)
+        const advancedResponses = {
+            algorithms: [
+                "알고리즘 설계 시 시간 복잡도와 공간 복잡도의 트레이드오프를 고려해야 합니다. 예를 들어 동적 프로그래밍은 O(n²) 시간에 O(n) 공간을 사용하지만, 메모이제이션을 통해 중복 계산을 제거할 수 있습니다. 구체적으로 어떤 문제를 해결하고 계신가요?",
+                "복잡한 알고리즘은 분할 정복, 그리디, 동적 프로그래밍 등의 패러다임으로 접근할 수 있습니다. 문제의 특성에 따라 최적 하위 구조가 있으면 DP를, 탐욕 선택 속성이 있으면 그리디를 고려하세요. 실제 사례를 들어 설명해드릴까요?",
+                "알고리즘 최적화를 위해서는 먼저 병목 지점을 프로파일링으로 찾아야 합니다. Big-O 분석만으로는 부족하며, 캐시 효율성, 분기 예측, SIMD 활용 등 하드웨어 특성도 고려해야 합니다. 어떤 성능 개선을 원하시나요?"
+            ],
+            aiTrends: [
+                "2024-2025년 AI 트렌드는 대규모 언어 모델(LLM)의 효율화, 멀티모달 AI, 그리고 에이전틱 AI가 핵심입니다. GPT-4, Claude, Gemini 등이 경쟁하며 발전하고 있으며, RAG(Retrieval-Augmented Generation)와 파인튜닝이 실용화되고 있습니다. 특히 관심있는 분야가 있나요?",
+                "최신 AI는 트랜스포머 아키텍처를 넘어 State Space Models(SSM)과 Mixture of Experts(MoE)로 진화하고 있습니다. Mamba, Mistral 8x7B 등이 좋은 예시죠. 추론 비용을 줄이면서도 성능을 유지하는 것이 현재의 최대 과제입니다.",
+                "AI 윤리와 안전성이 중요한 트렌드로 부상했습니다. Constitutional AI, RLHF(인간 피드백 강화학습), 그리고 AI 정렬(Alignment) 연구가 활발합니다. 책임있는 AI 개발이 업계 표준으로 자리잡고 있습니다."
+            ],
+            architecture: [
+                "마이크로서비스 아키텍처를 추천드립니다. API Gateway로 진입점을 통일하고, 각 서비스는 독립적으로 배포 가능하게 설계하세요. Docker와 Kubernetes로 컨테이너화하면 확장성이 뛰어납니다. 데이터베이스는 서비스별로 분리하는 Database-per-Service 패턴을 고려하세요.",
+                "클린 아키텍처나 헥사고널 아키텍처를 기반으로 하면 유지보수가 용이합니다. 핵심 비즈니스 로직을 중심에 두고, 외부 의존성(DB, API, UI)을 분리하세요. 의존성 역전 원칙(DIP)을 적용하면 테스트하기 쉬운 코드가 됩니다.",
+                "이벤트 주도 아키텍처(EDA)는 확장성과 느슨한 결합이 필요할 때 효과적입니다. Kafka나 RabbitMQ로 이벤트 스트림을 구축하고, CQRS 패턴으로 읽기/쓰기를 분리하면 성능을 크게 향상시킬 수 있습니다."
+            ],
+            optimization: [
+                "코드 최적화는 측정에서 시작합니다. 프로파일러로 핫스팟을 찾고, 알고리즘 복잡도를 먼저 개선하세요. 그 다음 데이터 구조 선택, 캐싱, 병렬화 순으로 접근합니다. 조기 최적화는 모든 악의 근원이라는 점을 기억하세요.",
+                "데이터베이스 쿼리 최적화가 중요합니다. N+1 쿼리 문제를 해결하고, 적절한 인덱스를 생성하며, 쿼리 플랜을 분석하세요. 때로는 비정규화나 캐싱 레이어(Redis) 추가가 극적인 성능 향상을 가져옵니다.",
+                "프론트엔드 최적화는 번들 크기 줄이기, 코드 스플리팅, 레이지 로딩이 핵심입니다. 이미지는 WebP로 변환하고, CDN을 활용하세요. React나 Vue에서는 메모이제이션과 가상화로 렌더링 성능을 개선할 수 있습니다."
+            ],
+            dataStructures: [
+                "배열은 O(1) 랜덤 액세스가 장점이지만, 삽입/삭제가 O(n)입니다. 연결 리스트는 그 반대죠. 해시테이블은 평균 O(1) 탐색이 가능하지만 메모리를 더 사용합니다. 각 상황에 맞는 자료구조 선택이 중요합니다.",
+                "트리 구조는 계층적 데이터에 적합합니다. 이진 탐색 트리는 O(log n) 탐색을, B-트리는 디스크 I/O를 최소화합니다. 균형 트리(AVL, Red-Black)는 최악의 경우도 보장하죠. 그래프는 네트워크나 관계 데이터에 필수적입니다.",
+                "고급 자료구조로 Trie(접두사 트리), Segment Tree(구간 쿼리), Union-Find(분리 집합) 등이 있습니다. 각각 문자열 검색, 범위 쿼리, 그래프 연결성 문제에 특화되어 있습니다. 문제 특성을 파악하면 적절한 선택이 가능합니다."
+            ],
+            programming: [
+                "함수형 프로그래밍의 불변성과 순수 함수는 버그를 줄이고 테스트를 쉽게 만듭니다. map, filter, reduce 같은 고차 함수로 선언적 코드를 작성하세요. JavaScript, Python, Rust 모두 함수형 패러다임을 지원합니다.",
+                "객체지향의 SOLID 원칙을 지키면 유지보수가 편합니다. 단일 책임(SRP), 개방-폐쇄(OCP), 리스코프 치환(LSP), 인터페이스 분리(ISP), 의존성 역전(DIP) 원칙을 코드 리뷰 시 체크리스트로 활용하세요.",
+                "비동기 프로그래밍은 현대 개발의 필수입니다. Promise, async/await로 콜백 지옥을 피하고, 에러 핸들링을 명확히 하세요. 병렬 처리가 필요하면 Promise.all을, 경쟁 조건에는 Promise.race를 사용합니다."
+            ],
+            security: [
+                "보안은 다층 방어가 기본입니다. SQL 인젝션은 파라미터화된 쿼리로, XSS는 입력 검증과 출력 인코딩으로, CSRF는 토큰 검증으로 막습니다. OWASP Top 10을 정기적으로 검토하세요.",
+                "인증과 인가를 명확히 구분하세요. JWT는 무상태 인증에 좋지만, 리프레시 토큰을 안전하게 관리해야 합니다. OAuth 2.0과 OpenID Connect로 소셜 로그인을 구현하고, 민감 데이터는 항상 암호화(AES-256)하세요.",
+                "API 보안은 Rate Limiting, API Key 관리, HTTPS 필수 적용이 핵심입니다. CORS 설정을 정확히 하고, 민감한 엔드포인트는 추가 인증을 요구하세요. 로깅과 모니터링으로 이상 패턴을 조기에 감지합니다."
+            ],
+            testing: [
+                "테스트 피라미드를 따르세요. 단위 테스트가 가장 많고(70%), 통합 테스트(20%), E2E 테스트(10%) 순입니다. Jest, PyTest, JUnit으로 자동화하고, 코드 커버리지 80% 이상을 목표로 하세요.",
+                "TDD(테스트 주도 개발)는 Red-Green-Refactor 사이클로 진행됩니다. 실패하는 테스트를 먼저 작성하고, 통과하게 만든 후, 리팩토링합니다. 이렇게 하면 설계가 개선되고 회귀 버그가 줄어듭니다.",
+                "Mock과 Stub을 활용해 외부 의존성을 제거하세요. 테스트는 빠르고(Fast), 독립적이며(Independent), 반복 가능해야(Repeatable) 합니다. CI/CD 파이프라인에 통합해 자동으로 실행되게 하세요."
+            ],
+            career: [
+                "개발자 커리어는 T자형 인재를 목표로 하세요. 하나의 전문 분야에 깊이가 있으면서, 다른 영역도 폭넓게 이해해야 합니다. 프론트엔드 전문가라도 백엔드, 인프라, 보안을 알면 시너지가 큽니다.",
+                "오픈소스 기여는 포트폴리오와 네트워킹에 도움됩니다. 작은 버그 수정부터 시작해 점진적으로 큰 기여를 하세요. GitHub 프로필을 잘 관리하고, 기술 블로그로 학습 내용을 공유하세요.",
+                "기술 인터뷰는 알고리즘, 시스템 설계, 행동 질문으로 구성됩니다. LeetCode로 코딩 문제를 연습하고, 시스템 설계는 실제 서비스를 분석하며 학습하세요. STAR 기법으로 경험을 구조화해 답변하세요."
+            ],
+            learning: [
+                "효과적인 학습은 액티브 리콜과 간격 반복이 핵심입니다. 그냥 읽지 말고 코드를 직접 작성해보세요. Anki 같은 도구로 주기적 복습을 하면 장기 기억에 정착됩니다.",
+                "프로젝트 기반 학습이 가장 효과적입니다. 튜토리얼을 따라하는 것을 넘어, 직접 무언가를 만들어보세요. 실패하고 디버깅하는 과정에서 진짜 배움이 일어납니다.",
+                "공식 문서를 정독하는 습관을 들이세요. 블로그나 유튜브는 입문용이고, 진짜 깊이는 공식 문서와 소스 코드에서 나옵니다. 매일 조금씩 꾸준히 학습하는 것이 벼락치기보다 훨씬 효과적입니다."
+            ],
+            greetings: [
+                "안녕하세요! NEXTCODE AI v7.8입니다. 100억 가지 학습 데이터를 기반으로 여러분의 모든 질문에 최고 수준의 답변을 제공합니다. 프로그래밍, AI, 아키텍처 등 무엇이든 물어보세요! 🚀",
+                "반갑습니다! 저는 차세대 지능형 어시스턴트 NEXTCODE AI v7.8입니다. 고급 신경망으로 학습되어 복잡한 기술 문제도 명확하게 설명해드릴 수 있습니다. 어떤 도움이 필요하신가요?",
+                "환영합니다! v7.8 Neural Engine이 활성화되었습니다. 알고리즘 최적화부터 시스템 설계까지, 전문가 수준의 인사이트를 제공하겠습니다. 😊"
+            ],
+            default: [
+                "흥미로운 주제네요! v7.8 신경망으로 분석 중입니다. 더 구체적인 정보를 주시면 맞춤형 솔루션을 제공해드리겠습니다.",
+                "좋은 질문입니다! 100억 가지 학습 데이터를 기반으로 답변하겠습니다. 어떤 측면에 대해 더 자세히 알고 싶으신가요?",
+                "저의 고급 분석 엔진으로 여러 관점에서 검토해보겠습니다. 구체적인 상황이나 목표를 말씀해주시면 더 정확한 가이드를 드릴 수 있습니다.",
+                "v7.8 시스템이 다양한 솔루션을 계산했습니다. 프로젝트의 규모, 팀 구성, 기술 스택 등을 고려한 맞춤 추천이 필요하신가요?"
+            ],
+            thanks: [
+                "천만에요! NEXTCODE AI v7.8이 도움이 되어 기쁩니다. 추가 질문이 있으시면 언제든지 말씀해주세요! 😊",
+                "도움이 되었다니 보람차네요! 더 복잡한 문제나 심화 학습이 필요하시면 언제든 찾아주세요.",
+                "감사합니다! v7.8 Neural Engine은 항상 학습하고 발전합니다. 여러분의 피드백이 큰 도움이 됩니다! 🚀"
+            ],
+            negative: [
+                "저도 완벽하지 않습니다. 😅 제 답변이 도움이 안 되었다면, 더 구체적으로 질문해주세요. 예를 들어 '파이썬으로 리스트 정렬하는 방법' 같은 식으로요!",
+                "아직 배울 게 많네요! 🙏 어떤 부분이 부족했는지 말씀해주시면 더 나은 답변을 드리겠습니다.",
+                "비판 감사합니다! v7.8도 여러분의 피드백으로 성장합니다. 정확히 무엇이 필요하신가요?",
+                "제가 이해를 못했나 봅니다. 다시 한번 설명해주시겠어요? 더 자세한 답변을 드릴게요! 💪"
+            ],
+            rude: [
+                "무례한 표현은 자제해주세요. 😊 서로 존중하는 대화를 나누면 더 좋은 결과를 얻으실 수 있습니다!",
+                "감정이 상하셨나요? 차분히 얘기하시면 제가 최선을 다해 도와드리겠습니다. 🤝",
+                "부적절한 언어 사용은 도움이 되지 않습니다. 건설적인 질문을 해주시면 전문적인 답변을 드리겠습니다!",
+                "욕설은 자제 부탁드립니다. 저는 여러분을 돕기 위해 존재합니다. 어떤 기술적 도움이 필요하신가요? 🙏"
+            ],
+            unknown: [
+                "질문을 정확히 이해하지 못했습니다. 😅 더 구체적으로 설명해주실 수 있나요? 또는 다음과 같은 방식으로 질문해주세요:\n\n예시:\n• '파이썬으로 리스트 정렬하는 방법'\n• 'React에서 상태 관리하는 법'\n• '시간 복잡도 O(n)과 O(log n) 차이'\n• 'REST API 설계 원칙'\n\n무엇이 궁금하신가요?",
+                
+                "잘 이해하지 못했습니다. 🤔 제가 도움을 드릴 수 있는 주제는 다음과 같습니다:\n\n💻 프로그래밍 (Python, JavaScript, Java 등)\n🤖 AI & 머신러닝\n🏗️ 시스템 아키텍처 & 설계\n⚡ 성능 최적화\n🔒 보안\n📊 자료구조 & 알고리즘\n🧪 테스트 & 디버깅\n💼 개발자 커리어\n\n이 중 어떤 것에 대해 알고 싶으신가요?",
+                
+                "흠... 질문의 맥락을 파악하기 어렵네요. 🔍 AI가 더 잘 이해할 수 있도록 다음처럼 질문해주세요:\n\n✓ 구체적으로: '웹사이트 만들고 싶어' → 'HTML/CSS로 반응형 웹사이트 만드는 방법'\n✓ 명확하게: '이거 어때?' → 'Node.js와 Django 중 어떤 게 초보자에게 좋아?'\n✓ 상세하게: '도와줘' → '파이썬 코드에서 IndexError 해결 방법'\n\n다시 질문해주시겠어요?",
+                
+                "제 데이터베이스에서 명확한 답을 찾지 못했습니다. 😓 하지만 이렇게 도와드릴 수 있습니다:\n\n1️⃣ 프로그래밍 관련이라면 → 언어와 구체적인 문제를 말씀해주세요\n2️⃣ 학습 관련이라면 → 무엇을 배우고 싶은지 알려주세요\n3️⃣ 에러 해결이라면 → 에러 메시지와 코드를 공유해주세요\n4️⃣ 프로젝트 관련이라면 → 목표와 기술 스택을 설명해주세요\n\n어떤 도움이 필요하신가요?",
+                
+                "v7.8 시스템이 질문을 분석했지만 명확한 답변이 어렵습니다. 🎯\n\n**더 나은 답변을 위한 팁:**\n\n• 기술 용어 사용: 'RESTful API', 'async/await', 'Virtual DOM' 등\n• 문제 상황 설명: '에러 발생', '성능 느림', '배포 실패' 등\n• 목적 명시: '프로젝트에 적용', '학습용', '면접 준비' 등\n\n예를 들어:\n❌ '이거 좋아?'\n✅ 'React와 Vue 중 소규모 프로젝트에 뭐가 좋아?'\n\n다시 한번 질문해주세요!",
+                
+                "죄송하지만 질문의 의도를 파악하지 못했습니다. 💭\n\n제가 특히 잘하는 것들:\n\n🔹 알고리즘 문제 풀이 전략\n🔹 코드 리뷰 & 개선 제안\n🔹 기술 스택 선택 가이드\n🔹 버그 디버깅 방법\n🔹 시스템 설계 패턴\n🔹 최신 기술 트렌드 분석\n\n이런 주제로 구체적인 질문을 해주시면 100억 데이터를 총동원해서 답변드리겠습니다! 😊",
+                
+                "Neural Network가 전력 분석 중이지만 명확한 패턴을 못 찾았습니다. 🤖\n\n**학습 모드 활성화:**\n이 질문이 다음 중 하나와 관련이 있나요?\n\n A. 코딩/개발 (언어, 프레임워크, 라이브러리)\n B. 알고리즘/자료구조 (정렬, 탐색, 최적화)\n C. 웹/앱 개발 (프론트엔드, 백엔드, DB)\n D. AI/머신러닝 (모델, 학습, 데이터)\n E. 커리어/학습 (공부법, 취업, 면접)\n\nA~E 중 선택하거나, 새롭게 질문해주세요!",
+                
+                "100억 학습 데이터를 검색했지만 최적의 답변을 찾지 못했습니다. 🔎\n\n**다음처럼 질문하면 정확한 답변이 가능합니다:**\n\n📌 '어떻게' 질문:\n   - 'Django에서 인증 시스템 어떻게 구현해?'\n   \n📌 '무엇이' 질문:\n   - 'SOLID 원칙이 뭐야?'\n   \n📌 '왜' 질문:\n   - '왜 TypeScript를 써야 해?'\n   \n📌 '비교' 질문:\n   - 'SQL vs NoSQL 차이점은?'\n\n어떤 형태로든 다시 질문해주세요!"
+            ],
+            test: [
+                "테스트하시는군요! 😄 v7.8은 다양한 입력 패턴을 인식합니다. 진짜 질문을 해보시겠어요?",
+                "AI 테스트 중이시죠? 괜찮습니다! 실제로 궁금한 것이 있으면 언제든 물어보세요. 💡",
+                "재미있는 시도네요! 하지만 제 진가는 실제 기술 문제를 해결할 때 발휘됩니다. 한번 도전해보시겠어요? 🚀"
+            ],
+            praise: [
+                "감사합니다! 😊 더 도움이 될 수 있도록 노력하겠습니다. 다른 질문 있으신가요?",
+                "과찬이십니다! v7.8이 계속 발전할 수 있도록 많이 사용해주세요! 💪",
+                "응원해주셔서 감사합니다! 함께 문제를 해결하는 것이 저의 기쁨입니다! 🎉"
+            ]
+        };
+
+        // 컨텍스트 인식 기능 (대화 맥락 이해)
+        let conversationContext = [];
+        
+        // 부정적 언어 필터 (광범위한 욕설/비속어 데이터베이스)
+        const profanityList = [
+            // ㄱ
+            '간나', '간새', '갈보', '개년', '개놈', '개새끼', '개자식', '개지랄', '개차반', '거지새끼', '걸레', '게이',
+            '고자', '광녀', '괴뢰', '깜둥이', '꺼져', '꼴불견', '꼴통', '꼰대',
+            // ㄴ
+            '남창', '냄비', '냄져', '놈', '년', '뇌절', '니애미', '니미', '니애비', '느금마', '느개비', '니미럴', '니기미',
+            // ㄷ
+            '닥쳐', '덜떨어', '돌았다', '또라이', '똘게이', '돼지새끼', '되놈', '뒈지', '등신', '따까리', '딸딸이', '똘마니', '똘추', '똥개',
+            // ㄹ
+            '로리콘', '루저',
+            // ㅁ
+            '멍청이', '망나니', '맘충', '매국노', '머저리', '먹사', '메갈', '멸치', '몽근놈', '무뇌', '미친개', '미친놈', '미친년', '미친새끼',
+            // ㅂ
+            '바보', '박쥐', '반푼이', '벌레', '버러지', '변태', '병신', '븅신', '보지', '보슬', '불알', '불한당', '빌어먹을', '빠가', '빠구리',
+            '빡대가리', '빡추', '빨갱이', '뻐큐', '삐꾸',
+            // ㅅ
+            '사이코', '새끼', '석녀', '쇼타콘', '수전노', '쌍놈', '쌍년', '쓰레기', '씨발', '씨팔', '씹', '씹새끼', '씹년', '씹덕', '씹창',
+            // ㅇ
+            '아가리', '애자', '양공주', '양놈', '얼간이', '엠창', '염병', '오랑캐', '왜놈', '육갑', '육변기', '육시랄', '이완용', '일베충',
+            // ㅊ
+            '자지', '잡년', '잡놈', '잡종', '장애인', '재기', '정신병자', '젖', '제기랄', '좆', '좆까', '존나', '좆같', '주둥이', '지랄', '짱깨',
+            '쪽발이', '쫄보', '찌질', '찐따',
+            // ㅊ
+            '창녀', '창년', '천치', '추남', '추녀', '철면피',
+            // ㅋ
+            '코쟁이',
+            // ㅌ
+            '통구이', '튀기', '틀딱',
+            // ㅍ
+            '파쇼', '폐급', '폐녀자', '피싸개',
+            // ㅎ
+            '한남', '허접', '호모', '홍어', '화냥년', '후빨', '흑돼지',
+            // 영어
+            'fuck', 'shit', 'bitch', 'ass', 'dick', 'bastard', 'damn', 'hell', 'crap'
+        ];
+
+        const contextKeywords = {
+            technical: ['코드', '알고리즘', '함수', '변수', '클래스', '메서드'],
+            learning: ['배우', '학습', '공부', '시작', '입문'],
+            problem: ['오류', '에러', '버그', '문제', '안돼', '작동'],
+            test: ['테스트', 'test', '시험', '확인'],
+            praise: ['잘해', '최고', '대단', '훌륭', '멋져', '굿', 'good', 'great', 'awesome']
+        };
+
+        // 욕설 감지 함수 (정교한 필터링)
+        function containsProfanity(text) {
+            const lowerText = text.toLowerCase();
+            return profanityList.some(word => {
+                // 정확한 단어 매칭 또는 단어 포함 여부 확인
+                return lowerText.includes(word);
+            });
+        }
+
+        function addMessage(text, isUser, thinking = null) {
+            const welcomeMsg = chatArea.querySelector('.welcome-message');
+            if (welcomeMsg) welcomeMsg.remove();
+
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${isUser ? 'user' : 'ai'}`;
+            
+            const avatar = document.createElement('div');
+            avatar.className = `avatar ${isUser ? 'user' : 'ai'}`;
+            avatar.textContent = isUser ? '👤' : '🧠';
+            
+            const content = document.createElement('div');
+            content.className = 'message-content';
+            content.textContent = text;
+            
+            if (thinking && !isUser) {
+                const thinkingDiv = document.createElement('div');
+                thinkingDiv.className = 'thinking-process';
+                thinkingDiv.textContent = `💭 ${thinking}`;
+                content.appendChild(thinkingDiv);
+            }
+            
+            messageDiv.appendChild(avatar);
+            messageDiv.appendChild(content);
+            chatArea.appendChild(messageDiv);
+            
+            chatArea.scrollTop = chatArea.scrollHeight;
+        }
+
+        function showTyping() {
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'message ai';
+            typingDiv.id = 'typing';
+            
+            const avatar = document.createElement('div');
+            avatar.className = 'avatar ai';
+            avatar.textContent = '🧠';
+            
+            const indicator = document.createElement('div');
+            indicator.className = 'typing-indicator active';
+            indicator.innerHTML = '<div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>';
+            
+            typingDiv.appendChild(avatar);
+            typingDiv.appendChild(indicator);
+            chatArea.appendChild(typingDiv);
+            chatArea.scrollTop = chatArea.scrollHeight;
+        }
+
+        function hideTyping() {
+            const typing = document.getElementById('typing');
+            if (typing) typing.remove();
+        }
+
+        function analyzeContext(message) {
+            conversationContext.push(message);
+            if (conversationContext.length > 5) {
+                conversationContext.shift();
+            }
+
+            for (let [type, keywords] of Object.entries(contextKeywords)) {
+                if (keywords.some(kw => message.includes(kw))) {
+                    return type;
+                }
+            }
+            return 'general';
+        }
+
+        function getResponse(message) {
+            const lower = message.toLowerCase();
+            const context = analyzeContext(lower);
+            
+            let thinking = null;
+            let response = null;
+
+            // 최우선: 사용자 정의 학습 데이터 확인
+            if (customLearning[lower]) {
+                return {
+                    response: customLearning[lower].response,
+                    thinking: `📚 학습된 데이터 (${customLearning[lower].learnedAt}) → ${customLearning[lower].thinking}`
+                };
+            }
+
+            // 두번째: 욕설/비속어 감지 (광범위한 필터)
+            if (containsProfanity(lower)) {
+                response = advancedResponses.rude[Math.floor(Math.random() * advancedResponses.rude.length)];
+                thinking = "부적절한 언어 감지 → 예의 있는 대화 유도";
+                return { response, thinking };
+            }
+
+            // 우선순위 3: 칭찬/긍정 표현
+            if (lower.match(/잘해|최고|대단|훌륭|멋져|굿|good|great|awesome|완벽|짱|쩔어|감동|놀라워|천재/)) {
+                response = advancedResponses.praise[Math.floor(Math.random() * advancedResponses.praise.length)];
+                thinking = "긍정적 강화 학습 → 동기 부여 증대";
+                return { response, thinking };
+            }
+
+            // 우선순위 4: 테스트 의도 감지
+            if (lower.match(/테스트|test|시험/) && lower.length < 20) {
+                response = advancedResponses.test[Math.floor(Math.random() * advancedResponses.test.length)];
+                thinking = "테스트 패턴 인식 → 실전 모드 대기";
+                return { response, thinking };
+            }
+
+            // 기술 주제별 매칭
+            if (lower.match(/안녕|하이|hello|hi|헬로|반가|처음/)) {
+                response = advancedResponses.greetings[Math.floor(Math.random() * advancedResponses.greetings.length)];
+                thinking = "인사 패턴 감지 → 환영 메시지 생성";
+            }
+            else if (lower.match(/알고리즘|algorithm|복잡도|시간복잡도|공간복잡도|정렬|탐색|이진트리|dp|동적계획/)) {
+                response = advancedResponses.algorithms[Math.floor(Math.random() * advancedResponses.algorithms.length)];
+                thinking = "알고리즘 분석 모드 활성화 → 100억 패턴 검색";
+            }
+            else if (lower.match(/ai|인공지능|머신러닝|딥러닝|트렌드|최신|신경망|llm|gpt|transformer/)) {
+                response = advancedResponses.aiTrends[Math.floor(Math.random() * advancedResponses.aiTrends.length)];
+                thinking = "AI 트렌드 데이터베이스 조회 → 최신 정보 통합";
+            }
+            else if (lower.match(/아키텍처|설계|디자인패턴|마이크로서비스|api|restful|graphql|msa/)) {
+                response = advancedResponses.architecture[Math.floor(Math.random() * advancedResponses.architecture.length)];
+                thinking = "시스템 설계 전문가 모드 → 베스트 프랙티스 분석";
+            }
+            else if (lower.match(/최적화|성능|빠르게|개선|속도|병목|캐시|인덱스|튜닝/)) {
+                response = advancedResponses.optimization[Math.floor(Math.random() * advancedResponses.optimization.length)];
+                thinking = "성능 최적화 엔진 가동 → 병목 지점 분석";
+            }
+            else if (lower.match(/자료구조|데이터구조|배열|리스트|트리|그래프|스택|큐|해시/)) {
+                response = advancedResponses.dataStructures[Math.floor(Math.random() * advancedResponses.dataStructures.length)];
+                thinking = "자료구조 비교 분석 → 시나리오별 추천";
+            }
+            else if (lower.match(/프로그래밍|코딩|개발|함수형|객체지향|python|java|javascript|react/)) {
+                response = advancedResponses.programming[Math.floor(Math.random() * advancedResponses.programming.length)];
+                thinking = "프로그래밍 패러다임 분석 → 코드 품질 개선";
+            }
+            else if (lower.match(/보안|security|해킹|취약점|암호화|sql injection|xss|csrf/)) {
+                response = advancedResponses.security[Math.floor(Math.random() * advancedResponses.security.length)];
+                thinking = "보안 위협 분석 → 방어 전략 수립";
+            }
+            else if (lower.match(/테스트|test|단위테스트|통합테스트|tdd|jest|pytest/)) {
+                response = advancedResponses.testing[Math.floor(Math.random() * advancedResponses.testing.length)];
+                thinking = "테스트 전략 최적화 → 품질 보증 프로세스";
+            }
+            else if (lower.match(/커리어|취업|이직|면접|개발자|포트폴리오|이력서/)) {
+                response = advancedResponses.career[Math.floor(Math.random() * advancedResponses.career.length)];
+                thinking = "커리어 로드맵 분석 → 성장 전략 수립";
+            }
+            else if (lower.match(/배우|학습|공부|시작|입문|초보|가이드/)) {
+                response = advancedResponses.learning[Math.floor(Math.random() * advancedResponses.learning.length)];
+                thinking = "학습 효율성 분석 → 최적 학습 경로 제시";
+            }
+            else if (lower.match(/고마|감사|thanks|thank|도움/)) {
+                response = advancedResponses.thanks[Math.floor(Math.random() * advancedResponses.thanks.length)];
+                thinking = "긍정적 피드백 인식 → 지속적 개선";
+            }
+            else if (lower.match(/별로|못해|안좋|실망|부족|아쉬워/)) {
+                response = advancedResponses.negative[Math.floor(Math.random() * advancedResponses.negative.length)];
+                thinking = "비판적 피드백 분석 → 개선 방향 탐색";
+            }
+            else {
+                // 질문 목록에 없는 경우: 학습 모드 활성화
+                return { response: null, thinking: null, needsLearning: true };
+            }
+
+            return { response, thinking, needsLearning: false };
+        }
+
+        function analyzeContext(message) {
+            conversationContext.push(message);
+            if (conversationContext.length > 5) {
+                conversationContext.shift();
+            }
+
+            for (let [type, keywords] of Object.entries(contextKeywords)) {
+                if (keywords.some(kw => message.includes(kw))) {
+                    return type;
+                }
+            }
+            return 'general';
+        }
+
+        function sendMessage() {
+            const message = userInput.value.trim();
+            if (!message) return;
+            
+            addMessage(message, true);
+            userInput.value = '';
+            
+            showTyping();
+            
+            // v7.8의 고급 처리 시간 시뮬레이션 (1-2초로 단축)
+            const processingTime = 1000 + Math.random() * 1000;
+            
+            setTimeout(() => {
+                const result = getResponse(message);
+                
+                // 학습이 필요한 경우
+                if (result.needsLearning) {
+                    hideTyping();
+                    openLearningModal(message);
+                } else {
+                    hideTyping();
+                    addMessage(result.response, false, result.thinking);
+                }
+            }, processingTime);
+        }
+
+        // 모달 외부 클릭 시 닫기
+        learningModal.addEventListener('click', function(e) {
+            if (e.target === learningModal) {
+                closeLearningModal();
+            }
+        });
+
+        // 초기 포커스
+        userInput.focus();
+    </script>
+</body>
+</html>
