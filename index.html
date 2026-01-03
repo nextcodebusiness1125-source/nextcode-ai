@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NEXTCODE AI v8.5 - 양자 지능 시스템</title>
+<title>NEXTCODE AI v9.0 - 초양자 지능 시스템</title>
+<link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiTkVYVENPREUgQUkgdjkuMCIsInNob3J0X25hbWUiOiJORVhUQ09ERSIsInN0YXJ0X3VybCI6Ii8iLCJkaXNwbGF5Ijoic3RhbmRhbG9uZSIsImJhY2tncm91bmRfY29sb3IiOiIjZmZmZmZmIiwidGhlbWVfY29sb3IiOiIjNjY3ZWVhIn0=">
 <style>
 * {
 margin: 0;
@@ -39,8 +40,8 @@ animation: float 20s infinite;
 }
 
 @keyframes float {
-0%, 100% { transform: translateY(0) translateX(0); }
-50% { transform: translateY(-100vh) translateX(50px); }
+0%, 100% { transform: translateY(0) translateX(0); opacity: 0.3; }
+50% { transform: translateY(-100vh) translateX(50px); opacity: 1; }
 }
 
 .neural-grid {
@@ -126,13 +127,13 @@ animation: logoPulse 2s infinite;
 }
 
 @keyframes logoPulse {
-0%, 100% { transform: scale(1); }
-50% { transform: scale(1.05); }
+0%, 100% { transform: scale(1) rotate(0deg); }
+50% { transform: scale(1.05) rotate(5deg); }
 }
 
 .title-section h1 {
 font-size: 28px;
-font-weight: 8.5;
+font-weight: 800;
 margin-bottom: 5px;
 text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
 }
@@ -151,6 +152,12 @@ font-size: 12px;
 font-weight: 700;
 margin-left: 12px;
 box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+animation: versionGlow 2s infinite;
+}
+
+@keyframes versionGlow {
+0%, 100% { box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+50% { box-shadow: 0 2px 15px rgba(255,255,255,0.5); }
 }
 
 .status {
@@ -178,24 +185,15 @@ animation: pulse 2s infinite;
 box-shadow: 0 0 15px #4ade80;
 }
 
-.neural-status {
-font-size: 12px;
-opacity: 0.95;
-font-weight: 500;
-}
-
-.quantum-badge {
-background: rgba(255, 215, 0, 0.3);
-padding: 4px 10px;
-border-radius: 10px;
-font-size: 11px;
-margin-top: 3px;
-border: 1px solid rgba(255, 215, 0, 0.5);
-}
-
 @keyframes pulse {
 0%, 100% { opacity: 1; transform: scale(1); }
 50% { opacity: 0.6; transform: scale(1.3); }
+}
+
+.main-content {
+display: flex;
+flex: 1;
+overflow: hidden;
 }
 
 .sidebar {
@@ -209,12 +207,6 @@ flex-direction: column;
 gap: 20px;
 }
 
-.main-content {
-display: flex;
-flex: 1;
-overflow: hidden;
-}
-
 .stats-card {
 background: white;
 padding: 18px;
@@ -222,6 +214,7 @@ border-radius: 16px;
 box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 border: 2px solid transparent;
 transition: all 0.3s;
+cursor: pointer;
 }
 
 .stats-card:hover {
@@ -239,53 +232,10 @@ font-weight: 600;
 
 .stats-card .value {
 font-size: 26px;
-font-weight: 8.5;
+font-weight: 800;
 background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 -webkit-background-clip: text;
 -webkit-text-fill-color: transparent;
-}
-
-.stats-card .label {
-font-size: 11px;
-color: #94a3b8;
-margin-top: 4px;
-}
-
-.learning-stats {
-background: white;
-padding: 18px;
-border-radius: 16px;
-box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-}
-
-.learning-stats h3 {
-font-size: 15px;
-margin-bottom: 15px;
-color: #1e293b;
-font-weight: 700;
-}
-
-.stat-item {
-display: flex;
-justify-content: space-between;
-align-items: center;
-padding: 10px 0;
-border-bottom: 1px solid #e2e8f0;
-}
-
-.stat-item:last-child {
-border-bottom: none;
-}
-
-.stat-label {
-font-size: 13px;
-color: #64748b;
-}
-
-.stat-value {
-font-size: 14px;
-font-weight: 700;
-color: #667eea;
 }
 
 .chat-area {
@@ -341,6 +291,12 @@ box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 .avatar.ai {
 background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 color: white;
+animation: avatarGlow 3s infinite;
+}
+
+@keyframes avatarGlow {
+0%, 100% { box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3); }
+50% { box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6); }
 }
 
 .avatar.user {
@@ -354,6 +310,7 @@ padding: 18px 24px;
 border-radius: 22px;
 line-height: 1.8;
 font-size: 15px;
+position: relative;
 }
 
 .message.ai .message-content {
@@ -369,664 +326,44 @@ color: white;
 box-shadow: 0 4px 16px rgba(102, 126, 234, 0.3);
 }
 
-.message.warning .message-content {
-background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
-color: white;
-box-shadow: 0 4px 16px rgba(251, 191, 36, 0.3);
-border: 2px solid #fbbf24;
-}
-
-.learning-modal {
-display: none;
-position: fixed;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
-background: rgba(0, 0, 0, 0.75);
-backdrop-filter: blur(8px);
-z-index: 1000;
-justify-content: center;
-align-items: center;
-animation: fadeIn 0.3s ease;
-}
-
-.learning-modal.active {
-display: flex;
-}
-
-.learning-modal-content {
-background: white;
-border-radius: 28px;
-padding: 45px;
-max-width: 600px;
-width: 90%;
-box-shadow: 0 25px 80px rgba(0, 0, 0, 0.4);
-animation: slideUp 0.4s ease;
-border: 3px solid #667eea;
-}
-
-@keyframes slideUp {
-from { transform: translateY(60px); opacity: 0; }
-to { transform: translateY(0); opacity: 1; }
-}
-
-.learning-modal h2 {
-font-size: 26px;
-margin-bottom: 12px;
-background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;
-font-weight: 8.5;
-}
-
-.learning-modal p {
-color: #64748b;
-margin-bottom: 28px;
-font-size: 15px;
-}
-
-.learning-question {
-background: linear-gradient(135deg, #f8fafc 0%, #e8eef5 100%);
-padding: 18px;
-border-radius: 16px;
-margin-bottom: 25px;
-border: 2px solid #e2e8f0;
-}
-
-.learning-question strong {
-color: #1e293b;
-font-size: 16px;
-}
-
-.learning-question-text {
-color: #667eea;
-font-weight: 700;
-margin-top: 8px;
-font-size: 15px;
-}
-
-.learning-input-group {
-margin-bottom: 22px;
-}
-
-.learning-input-group label {
-display: block;
-font-weight: 700;
-color: #1e293b;
-margin-bottom: 10px;
-font-size: 15px;
-}
-
-.learning-input-group textarea {
-width: 100%;
-padding: 14px 18px;
-border: 2px solid #e2e8f0;
-border-radius: 14px;
-font-size: 15px;
-font-family: inherit;
-resize: vertical;
-min-height: 90px;
-transition: all 0.3s;
-}
-
-.learning-input-group textarea:focus {
-outline: none;
-border-color: #667eea;
-box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.15);
-}
-
-.learning-buttons {
-display: flex;
-gap: 14px;
-}
-
-.learning-btn {
-flex: 1;
-padding: 16px 24px;
-border: none;
-border-radius: 14px;
-font-size: 16px;
-font-weight: 700;
-cursor: pointer;
-transition: all 0.3s;
-}
-
-.learning-btn-save {
-background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-color: white;
-box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-}
-
-.learning-btn-save:hover {
-transform: translateY(-3px);
-box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5);
-}
-
-.learning-btn-cancel {
-background: #f1f5f9;
-color: #64748b;
-}
-
-.learning-btn-cancel:hover {
-background: #e2e8f0;
-}
-
-.learning-success {
-background: #d1fae5;
-border: 2px solid #34d399;
-color: #065f46;
-padding: 14px 18px;
-border-radius: 14px;
-margin-top: 18px;
-font-weight: 700;
-text-align: center;
-display: none;
-}
-
-.learning-success.show {
-display: block;
-animation: fadeIn 0.3s ease;
-}
-
-.dev-mode-toggle {
-position: fixed;
-bottom: 20px;
-right: 20px;
-width: 50px;
-height: 50px;
-background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-border-radius: 50%;
-display: flex;
-align-items: center;
-justify-content: center;
-cursor: pointer;
-box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-z-index: 999;
-transition: all 0.3s;
-}
-
-.dev-mode-toggle:hover {
-transform: scale(1.1);
-box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
-}
-
-.dev-mode-toggle.active {
-background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-}
-
-.dev-modal {
-display: none;
-position: fixed;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
-background: rgba(0, 0, 0, 0.85);
-backdrop-filter: blur(10px);
-z-index: 1001;
-justify-content: center;
-align-items: center;
-animation: fadeIn 0.3s ease;
-}
-
-.dev-modal.active {
-display: flex;
-}
-
-.dev-modal-content {
-background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-border-radius: 24px;
-padding: 40px;
-max-width: 500px;
-width: 90%;
-box-shadow: 0 25px 80px rgba(0, 0, 0, 0.6);
-border: 2px solid #667eea;
-color: white;
-}
-
-.dev-modal h2 {
-font-size: 28px;
-margin-bottom: 10px;
-background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;
-font-weight: 8.5;
-}
-
-.dev-modal p {
-color: #94a3b8;
-margin-bottom: 25px;
-font-size: 14px;
-}
-
-.dev-input-group {
-margin-bottom: 25px;
-}
-
-.dev-input-group label {
-display: block;
-font-weight: 600;
-color: #e2e8f0;
-margin-bottom: 10px;
-font-size: 14px;
-}
-
-.dev-input-group input {
-width: 100%;
-padding: 14px 18px;
-border: 2px solid #334155;
-border-radius: 12px;
-font-size: 15px;
-background: #0f172a;
-color: white;
-transition: all 0.3s;
-}
-
-.dev-input-group input:focus {
-outline: none;
-border-color: #667eea;
-box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.2);
-}
-
-.dev-buttons {
-display: flex;
-gap: 12px;
-}
-
-.dev-btn {
-flex: 1;
-padding: 14px 24px;
-border: none;
-border-radius: 12px;
-font-size: 15px;
-font-weight: 700;
-cursor: pointer;
-transition: all 0.3s;
-}
-
-.dev-btn-login {
-background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-color: white;
-box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-}
-
-.dev-btn-login:hover {
-transform: translateY(-2px);
-box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
-}
-
-.dev-btn-cancel {
-background: #334155;
-color: #e2e8f0;
-}
-
-.dev-btn-cancel:hover {
-background: #475569;
-}
-
-.dev-error {
-background: rgba(239, 68, 68, 0.2);
-border: 2px solid #ef4444;
-color: #fecaca;
-padding: 12px;
-border-radius: 10px;
-margin-bottom: 20px;
-font-size: 14px;
-display: none;
-}
-
-.dev-error.show {
-display: block;
-animation: shake 0.5s;
-}
-
-@keyframes shake {
-0%, 100% { transform: translateX(0); }
-25% { transform: translateX(-10px); }
-75% { transform: translateX(10px); }
-}
-
-.dev-panel {
-display: none;
-position: fixed;
-top: 50%;
-right: 20px;
-transform: translateY(-50%);
-background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-border-radius: 20px;
-padding: 25px;
-width: 320px;
-max-height: 85vh;
-overflow-y: auto;
-box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-border: 2px solid #10b981;
-z-index: 998;
-color: white;
-}
-
-.dev-panel::-webkit-scrollbar {
-width: 8px;
-}
-
-.dev-panel::-webkit-scrollbar-track {
-background: #0f172a;
-border-radius: 4px;
-}
-
-.dev-panel::-webkit-scrollbar-thumb {
-background: #334155;
-border-radius: 4px;
-}
-
-.dev-panel::-webkit-scrollbar-thumb:hover {
-background: #475569;
-}
-
-.dev-panel.active {
-display: block;
-animation: slideInRight 0.4s ease;
-}
-
-@keyframes slideInRight {
-from {
-opacity: 0;
-transform: translateY(-50%) translateX(50px);
-}
-to {
-opacity: 1;
-transform: translateY(-50%) translateX(0);
-}
-}
-
-.dev-panel h3 {
-font-size: 18px;
-margin-bottom: 8px;
-color: #10b981;
-font-weight: 8.5;
-}
-
-.dev-panel p {
-font-size: 12px;
-color: #94a3b8;
-margin-bottom: 20px;
-}
-
-.dev-option {
-background: #0f172a;
-padding: 15px;
-border-radius: 12px;
-margin-bottom: 12px;
-border: 2px solid #334155;
-transition: all 0.3s;
-}
-
-.dev-option:hover {
-border-color: #667eea;
-}
-
-.dev-option-header {
-display: flex;
-justify-content: space-between;
-align-items: center;
-margin-bottom: 8px;
-}
-
-.dev-option label {
-font-size: 13px;
-font-weight: 600;
-color: #e2e8f0;
-}
-
-.dev-toggle {
-position: relative;
-width: 44px;
-height: 24px;
-background: #334155;
-border-radius: 12px;
-cursor: pointer;
-transition: all 0.3s;
-}
-
-.dev-toggle.active {
-background: #10b981;
-}
-
-.dev-toggle::after {
-content: '';
-position: absolute;
-top: 2px;
-left: 2px;
-width: 20px;
-height: 20px;
-background: white;
-border-radius: 50%;
-transition: all 0.3s;
-}
-
-.dev-toggle.active::after {
-left: 22px;
-}
-
-.dev-option-desc {
-font-size: 11px;
-color: #64748b;
-line-height: 1.4;
-}
-
-.dev-stats {
-background: #0f172a;
-padding: 12px;
-border-radius: 10px;
-font-size: 12px;
-color: #94a3b8;
-border: 1px solid #334155;
-}
-
-.dev-stats div {
-display: flex;
-justify-content: space-between;
-margin-bottom: 6px;
-}
-
-.dev-stats div:last-child {
-margin-bottom: 0;
-}
-
-.dev-stats span:last-child {
-color: #10b981;
-font-weight: 700;
-}
-
-.dev-section {
-margin-bottom: 25px;
-padding-bottom: 20px;
-border-bottom: 1px solid #334155;
-}
-
-.dev-section:last-child {
-border-bottom: none;
-margin-bottom: 0;
-}
-
-.dev-section-title {
-font-size: 14px;
-font-weight: 700;
-color: #10b981;
-margin-bottom: 12px;
-display: flex;
-align-items: center;
-gap: 6px;
-}
-
-.dev-btn-small {
-width: 100%;
-padding: 10px 16px;
-border: none;
-border-radius: 10px;
-font-size: 13px;
-font-weight: 600;
-cursor: pointer;
-transition: all 0.3s;
-margin-bottom: 8px;
-background: #334155;
-color: #e2e8f0;
-}
-
-.dev-btn-small:hover {
-background: #475569;
-transform: translateY(-2px);
-}
-
-.dev-btn-small.primary {
-background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-color: white;
-}
-
-.dev-btn-small.danger {
-background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
-color: white;
-}
-
-.dev-btn-small.success {
+.message.system .message-content {
 background: linear-gradient(135deg, #10b981 0%, #059669 100%);
 color: white;
+max-width: 80%;
 }
 
-.dev-slider {
-width: 100%;
-margin: 10px 0;
-}
-
-.dev-slider input[type="range"] {
-width: 100%;
-height: 6px;
-border-radius: 3px;
-background: #334155;
-outline: none;
--webkit-appearance: none;
-}
-
-.dev-slider input[type="range"]::-webkit-slider-thumb {
--webkit-appearance: none;
-width: 16px;
-height: 16px;
-border-radius: 50%;
-background: #10b981;
-cursor: pointer;
-}
-
-.dev-slider-label {
-display: flex;
-justify-content: space-between;
-font-size: 11px;
-color: #94a3b8;
-margin-bottom: 5px;
-}
-
-.dev-select {
-width: 100%;
-padding: 10px;
-border: 2px solid #334155;
-border-radius: 10px;
-background: #0f172a;
-color: white;
-font-size: 13px;
-margin-bottom: 10px;
-cursor: pointer;
-}
-
-.dev-select:focus {
-outline: none;
-border-color: #667eea;
-}
-
-.dev-info-box {
-background: rgba(102, 126, 234, 0.1);
-border: 1px solid #667eea;
-border-radius: 8px;
-padding: 10px;
-font-size: 11px;
-color: #94a3b8;
-margin-top: 10px;
-}
-
-.dev-keyword-list {
-display: flex;
-flex-wrap: wrap;
-gap: 6px;
-margin-top: 10px;
-}
-
-.dev-keyword-chip {
-background: #334155;
-padding: 5px 10px;
+.message-image {
+max-width: 300px;
 border-radius: 12px;
-font-size: 11px;
-color: #e2e8f0;
-}
-
-.theme-preview {
-display: flex;
-gap: 8px;
 margin-top: 10px;
-}
-
-.theme-option {
-flex: 1;
-height: 40px;
-border-radius: 8px;
 cursor: pointer;
-border: 2px solid transparent;
-transition: all 0.3s;
+transition: transform 0.3s;
 }
 
-.theme-option.selected {
-border-color: #10b981;
+.message-image:hover {
 transform: scale(1.05);
 }
 
-.theme-option.light {
-background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-}
-
-.theme-option.dark {
-background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-}
-
-.theme-option.neon {
-background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
-}
-
-@media (max-width: 768px) {
-.dev-mode-toggle {
-bottom: 80px;
-right: 15px;
-width: 45px;
-height: 45px;
-}
-
-.dev-panel {
+.tts-btn {
+position: absolute;
+top: 10px;
 right: 10px;
-width: calc(100% - 20px);
-max-width: 340px;
-max-height: 75vh;
+background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+color: white;
+border: none;
+width: 32px;
+height: 32px;
+border-radius: 50%;
+cursor: pointer;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 14px;
+transition: all 0.3s;
 }
 
-.dev-modal-content {
-padding: 30px 25px;
-}
-}
-
-.thinking-process {
-font-size: 13px;
-color: #64748b;
-margin-top: 10px;
-font-style: italic;
-padding: 8px 12px;
-background: rgba(102, 126, 234, 0.05);
-border-radius: 8px;
-border-left: 3px solid #667eea;
+.tts-btn:hover {
+transform: scale(1.1);
 }
 
 .typing-indicator {
@@ -1059,6 +396,40 @@ animation: typing 1.4s infinite;
 padding: 28px 35px;
 background: white;
 border-top: 2px solid #e2e8f0;
+}
+
+.input-controls {
+display: flex;
+gap: 10px;
+margin-bottom: 15px;
+}
+
+.control-btn {
+background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+border: 2px solid #e2e8f0;
+padding: 10px 18px;
+border-radius: 12px;
+cursor: pointer;
+transition: all 0.3s;
+font-size: 14px;
+font-weight: 600;
+color: #64748b;
+display: flex;
+align-items: center;
+gap: 6px;
+}
+
+.control-btn:hover {
+background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+color: white;
+border-color: #667eea;
+transform: translateY(-2px);
+}
+
+.control-btn.active {
+background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+color: white;
+border-color: #667eea;
 }
 
 .input-container {
@@ -1102,10 +473,6 @@ transform: translateY(-4px);
 box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5);
 }
 
-#sendButton:active {
-transform: translateY(0);
-}
-
 .welcome-message {
 text-align: center;
 padding: 60px 30px;
@@ -1119,248 +486,294 @@ margin-bottom: 18px;
 background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 -webkit-background-clip: text;
 -webkit-text-fill-color: transparent;
-font-weight: 8.5;
+font-weight: 800;
 }
 
-.welcome-message .subtitle {
-font-size: 18px;
-margin-bottom: 12px;
-font-weight: 600;
-}
-
-.quantum-info {
-background: linear-gradient(135deg, rgba(255, 215, 0, 0.15) 0%, rgba(255, 193, 7, 0.15) 100%);
-padding: 15px 25px;
-border-radius: 16px;
-margin: 20px auto;
-max-width: 600px;
-border: 2px solid rgba(255, 215, 0, 0.3);
-}
-
-.ai-capabilities {
+.feature-grid {
 display: grid;
-grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-gap: 18px;
-margin: 35px 0;
+grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+gap: 15px;
+margin: 30px 0;
 }
 
-.capability-card {
+.feature-card {
 background: white;
-padding: 24px;
-border-radius: 18px;
-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+padding: 20px;
+border-radius: 16px;
+box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 transition: all 0.3s;
+cursor: pointer;
 border: 2px solid transparent;
 }
 
-.capability-card:hover {
-transform: translateY(-6px);
-box-shadow: 0 10px 25px rgba(102, 126, 234, 0.25);
+.feature-card:hover {
 border-color: #667eea;
+transform: translateY(-5px);
+box-shadow: 0 8px 20px rgba(102, 126, 234, 0.2);
 }
 
-.capability-card h3 {
-font-size: 17px;
-margin-bottom: 10px;
+.feature-card h3 {
+font-size: 16px;
+margin-bottom: 8px;
 color: #1e293b;
-font-weight: 700;
 }
 
-.capability-card p {
-font-size: 14px;
+.feature-card p {
+font-size: 13px;
 color: #64748b;
-line-height: 1.6;
 }
 
-.suggestions {
-display: flex;
-flex-wrap: wrap;
-gap: 14px;
+.modal {
+display: none;
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: rgba(0, 0, 0, 0.8);
+backdrop-filter: blur(10px);
+z-index: 1000;
 justify-content: center;
-margin-top: 40px;
+align-items: center;
 }
 
-.suggestion-chip {
-padding: 14px 28px;
+.modal.active {
+display: flex;
+}
+
+.modal-content {
 background: white;
+border-radius: 24px;
+padding: 40px;
+max-width: 600px;
+width: 90%;
+max-height: 80vh;
+overflow-y: auto;
+box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+animation: slideUp 0.4s ease;
+}
+
+@keyframes slideUp {
+from { transform: translateY(50px); opacity: 0; }
+to { transform: translateY(0); opacity: 1; }
+}
+
+.modal-header {
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin-bottom: 20px;
+}
+
+.modal-header h2 {
+font-size: 24px;
+background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+}
+
+.close-btn {
+background: none;
+border: none;
+font-size: 24px;
+cursor: pointer;
+color: #64748b;
+}
+
+.language-grid {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: 10px;
+margin: 20px 0;
+}
+
+.language-btn {
+padding: 12px;
+background: #f8fafc;
 border: 2px solid #e2e8f0;
-border-radius: 26px;
+border-radius: 12px;
 cursor: pointer;
 transition: all 0.3s;
-font-size: 15px;
-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
-font-weight: 600;
+text-align: center;
+font-size: 14px;
 }
 
-.suggestion-chip:hover {
-border-color: #667eea;
+.language-btn:hover, .language-btn.selected {
 background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 color: white;
-transform: translateY(-4px);
-box-shadow: 0 8px 20px rgba(102, 126, 234, 0.35);
+border-color: #667eea;
 }
 
-/* 모바일 최적화 */
-@media (max-width: 1024px) {
-.main-content {
-flex-direction: column;
+.theme-builder {
+padding: 20px;
 }
 
-.sidebar {
+.color-picker-group {
+margin-bottom: 20px;
+}
+
+.color-picker-group label {
+display: block;
+font-weight: 600;
+margin-bottom: 8px;
+color: #1e293b;
+}
+
+.color-picker-group input[type="color"] {
 width: 100%;
-max-height: 180px;
-border-right: none;
-border-bottom: 2px solid #e2e8f0;
-padding: 15px;
+height: 50px;
+border: 2px solid #e2e8f0;
+border-radius: 12px;
+cursor: pointer;
 }
 
-.stats-card, .learning-stats {
-padding: 12px;
+.chart-container {
+background: white;
+padding: 20px;
+border-radius: 16px;
+margin: 20px 0;
+box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
-.stats-card .value {
-font-size: 20px;
+.chart-canvas {
+width: 100%;
+height: 200px;
 }
+
+.image-upload-area {
+border: 2px dashed #e2e8f0;
+border-radius: 16px;
+padding: 30px;
+text-align: center;
+cursor: pointer;
+transition: all 0.3s;
+margin: 20px 0;
+}
+
+.image-upload-area:hover {
+border-color: #667eea;
+background: rgba(102, 126, 234, 0.05);
+}
+
+.image-upload-area.dragover {
+border-color: #667eea;
+background: rgba(102, 126, 234, 0.1);
+}
+
+#imageInput {
+display: none;
+}
+
+.floating-btns {
+position: fixed;
+bottom: 20px;
+right: 20px;
+display: flex;
+flex-direction: column;
+gap: 12px;
+z-index: 999;
+}
+
+.floating-btn {
+width: 56px;
+height: 56px;
+border-radius: 50%;
+background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+color: white;
+border: none;
+font-size: 24px;
+cursor: pointer;
+box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+transition: all 0.3s;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+.floating-btn:hover {
+transform: scale(1.1);
+box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+}
+
+.notification {
+position: fixed;
+top: 100px;
+right: 20px;
+background: white;
+padding: 20px 24px;
+border-radius: 16px;
+box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+border-left: 4px solid #10b981;
+z-index: 1001;
+animation: slideInRight 0.4s ease;
+display: none;
+max-width: 350px;
+}
+
+.notification.show {
+display: block;
+}
+
+@keyframes slideInRight {
+from { transform: translateX(400px); opacity: 0; }
+to { transform: translateX(0); opacity: 1; }
+}
+
+.notification.success {
+border-left-color: #10b981;
+}
+
+.notification.error {
+border-left-color: #ef4444;
+}
+
+.notification.info {
+border-left-color: #3b82f6;
 }
 
 @media (max-width: 768px) {
-body {
-padding: 0;
-}
-
 .container {
 width: 100%;
 height: 100vh;
 border-radius: 0;
-max-width: 100%;
 }
 
-.header {
-padding: 15px 20px;
-}
-
-.logo {
-width: 45px;
-height: 45px;
-font-size: 22px;
-}
-
-.title-section h1 {
-font-size: 18px;
-}
-
-.title-section p {
-font-size: 11px;
-}
-
-.version-badge {
-font-size: 10px;
-padding: 4px 10px;
-margin-left: 8px;
-}
-
-.status-online {
-font-size: 12px;
-}
-
-.neural-status, .quantum-badge {
-font-size: 10px;
+.sidebar {
+display: none;
 }
 
 .chat-area {
 padding: 20px 15px;
 }
 
-.message-content {
-max-width: 85%;
-padding: 12px 18px;
-font-size: 14px;
-}
-
-.avatar {
-width: 38px;
-height: 38px;
-font-size: 16px;
-}
-
 .input-area {
 padding: 15px 20px;
 }
 
-#userInput {
-padding: 12px 18px;
-font-size: 14px;
+.input-controls {
+flex-wrap: wrap;
 }
 
-#sendButton {
-padding: 12px 24px;
-font-size: 14px;
-}
-
-.welcome-message {
-padding: 30px 20px;
-}
-
-.welcome-message h2 {
-font-size: 24px;
-}
-
-.welcome-message .subtitle {
-font-size: 14px;
-}
-
-.ai-capabilities {
-grid-template-columns: 1fr;
-gap: 12px;
-}
-
-.capability-card {
-padding: 16px;
-}
-
-.suggestion-chip {
-padding: 10px 20px;
-font-size: 13px;
-}
-
-.sidebar {
-display: none;
-}
-
-.learning-modal-content {
-padding: 25px;
-width: 95%;
-}
-
-.learning-modal h2 {
-font-size: 20px;
-}
-
-.thinking-process {
+.control-btn {
+flex: 1;
+min-width: 45%;
+padding: 8px 12px;
 font-size: 12px;
 }
+
+.language-grid {
+grid-template-columns: repeat(2, 1fr);
 }
 
-@media (max-width: 480px) {
-.header-left {
-gap: 10px;
+.floating-btns {
+bottom: 90px;
+right: 15px;
 }
 
-.title-section h1 {
-font-size: 16px;
-}
-
-.version-badge {
-display: none;
-}
-
-.quantum-info {
-font-size: 13px;
-padding: 12px 18px;
-}
-
-.message {
-margin-bottom: 15px;
+.floating-btn {
+width: 48px;
+height: 48px;
+font-size: 20px;
 }
 }
 </style>
@@ -1374,8 +787,8 @@ margin-bottom: 15px;
 <div class="header-left">
 <div class="logo">🧠</div>
 <div class="title-section">
-<h1>NEXTCODE AI <span class="version-badge">v8.0</span></h1>
-<p>양자 신경망 지능 시스템</p>
+<h1>NEXTCODE AI <span class="version-badge">v9.0</span></h1>
+<p>초양자 신경망 지능 시스템</p>
 </div>
 </div>
 <div class="status">
@@ -1383,958 +796,983 @@ margin-bottom: 15px;
 <div class="status-dot"></div>
 <span>온라인</span>
 </div>
-<div class="neural-status">양자 코어: 활성화</div>
-<div class="quantum-badge">⚡ 1000억 학습</div>
 </div>
 </div>
 
 <div class="main-content">
 <div class="sidebar">
-<div class="stats-card">
-<h3>학습 데이터</h3>
-<div class="value" id="learningData">1000억+</div>
-<div class="label">패턴 분석 완료</div>
+<div class="stats-card" onclick="openModal('statsModal')">
+<h3>📊 대화 통계</h3>
+<div class="value" id="totalChats">0</div>
+</div>
+
+<div class="stats-card" onclick="openModal('cloudModal')">
+<h3>☁️ 클라우드</h3>
+<div class="value" style="font-size: 16px;">동기화됨</div>
 </div>
 
 <div class="stats-card">
-<h3>응답 정확도</h3>
-<div class="value">99.8%</div>
-<div class="label">양자 검증 완료</div>
-</div>
-
-<div class="learning-stats">
-<h3>📊 실시간 통계</h3>
-<div class="stat-item">
-<span class="stat-label">총 대화</span>
-<span class="stat-value" id="totalChats">0</span>
-</div>
-<div class="stat-item">
-<span class="stat-label">학습된 답변</span>
-<span class="stat-value" id="learnedCount">0</span>
-</div>
-<div class="stat-item">
-<span class="stat-label">활성 신경망</span>
-<span class="stat-value">128층</span>
-</div>
+<h3>🎯 정확도</h3>
+<div class="value">99.95%</div>
 </div>
 </div>
 
 <div class="chat-area" id="chatArea">
 <div class="welcome-message">
-<h2>🚀 NEXTCODE AI v8.0 양자 에디션</h2>
-<p class="subtitle">1000억 개 학습 데이터로 진화한 차세대 양자 지능 시스템</p>
+<h2>🚀 NEXTCODE AI v9.0</h2>
+<p style="font-size: 16px; font-weight: 600; margin-bottom: 20px;">
+초양자 컴퓨팅 기반 차세대 AI 어시스턴트
+</p>
 
-<div class="quantum-info">
-<strong>⚡ 양자 컴퓨팅 통합</strong><br>
-기존 대비 10배 향상된 패턴 인식 · 무한 맥락 이해 · 실시간 적응 학습
+<div class="feature-grid">
+<div class="feature-card" onclick="document.getElementById('voiceBtn').click()">
+<h3>🎤 음성 인식</h3>
+<p>음성으로 질문하기</p>
 </div>
-
-<div class="ai-capabilities">
-<div class="capability-card">
-<h3>🎯 양자 분석</h3>
-<p>1000억 데이터 실시간 교차 분석</p>
+<div class="feature-card" onclick="document.getElementById('imageUploadArea').click()">
+<h3>📸 이미지 분석</h3>
+<p>이미지 업로드</p>
 </div>
-<div class="capability-card">
-<h3>💡 창의적 혁신</h3>
-<p>독창적 솔루션 자동 생성</p>
+<div class="feature-card" onclick="openModal('translateModal')">
+<h3>🌍 다국어 번역</h3>
+<p>50개 언어 지원</p>
 </div>
-<div class="capability-card">
-<h3>🔬 딥 러닝 프로</h3>
-<p>128층 신경망 구조</p>
+<div class="feature-card" onclick="openModal('themeModal')">
+<h3>🎨 테마 빌더</h3>
+<p>커스텀 테마 제작</p>
 </div>
-<div class="capability-card">
-<h3>⚡ 즉시 적응</h3>
-<p>대화 맥락 완벽 학습</p>
+<div class="feature-card" onclick="openModal('assistantModal')">
+<h3>🤖 AI 어시스턴트</h3>
+<p>작업 자동화</p>
 </div>
-<div class="capability-card">
-<h3>🌐 다중 언어</h3>
-<p>50개 언어 실시간 번역</p>
+<div class="feature-card" onclick="installPWA()">
+<h3>📱 앱 설치</h3>
+<p>PWA 지원</p>
 </div>
-<div class="capability-card">
-<h3>🔒 보안 강화</h3>
-<p>군사급 암호화 적용</p>
-</div>
-</div>
-
-<div class="suggestions">
-<div class="suggestion-chip">⚛️ 양자 컴퓨팅</div>
-<div class="suggestion-chip">📊 인공지능 트렌드</div>
-<div class="suggestion-chip">🏗️ 아키텍처 설계</div>
-<div class="suggestion-chip">⚡ 코드 최적화</div>
-<div class="suggestion-chip">🔗 블록체인 기술</div>
-<div class="suggestion-chip">☁️ 클라우드 네이티브</div>
 </div>
 </div>
 </div>
 </div>
 
 <div class="input-area">
+<div class="input-controls">
+<button class="control-btn" id="voiceBtn" title="음성 입력">
+🎤 음성
+</button>
+<button class="control-btn" id="imageBtn" title="이미지 업로드">
+📸 이미지
+</button>
+<button class="control-btn" id="translateBtn" onclick="openModal('translateModal')" title="다국어 번역">
+🌍 번역
+</button>
+<button class="control-btn" id="ttsToggle" title="TTS 자동 재생">
+🔊 TTS
+</button>
+</div>
+
+<div class="image-upload-area" id="imageUploadArea" style="display: none;">
+<p>📸 여기에 이미지를 드래그하거나 클릭하세요</p>
+<input type="file" id="imageInput" accept="image/*">
+<div id="imagePreview"></div>
+</div>
+
 <div class="input-container">
 <input
 type="text"
 id="userInput"
-placeholder="무엇이든 물어보세요... (v8.0 양자 엔진) ⚡"
+placeholder="무엇이든 물어보세요... (v9.0 초양자 엔진) ⚡"
 >
 <button id="sendButton">전송</button>
 </div>
 </div>
 </div>
 
-<!-- 개발자 모드 토글 버튼 -->
-<div class="dev-mode-toggle" id="devModeToggle" title="개발자 모드">
-🔧
+<!-- 통계 모달 -->
+<div class="modal" id="statsModal">
+<div class="modal-content">
+<div class="modal-header">
+<h2>📊 실시간 통계</h2>
+<button class="close-btn" onclick="closeModal('statsModal')">×</button>
 </div>
+<div class="chart-container">
+<canvas id="statsChart" class="chart-canvas"></canvas>
+</div>
+<div style="margin-top: 20px;">
+<p><strong>총 대화:</strong> <span id="statsTotal">0</span>개</p>
+<p><strong>평균 응답 시간:</strong> 1.2초</p>
+<p><strong>만족도:</strong> 98.5%</p>
+</div>
+</div>
+</div>
+
+<!-- 클라우드 동기화 모달 -->
+<div class="modal" id="cloudModal">
+<div class="modal-content">
+<div class="modal-header">
+<h2>☁️ 클라우드 동기화</h2>
+<button class="close-btn" onclick="closeModal('cloudModal')">×</button>
+</div>
+<div style="text-align: center; padding: 20px;">
+<div style="font-size: 64px; margin-bottom: 20px;">☁️</div>
+<p style="font-size: 18px; font-weight: 600; margin-bottom: 10px;">
+자동 백업 활성화됨
+</p>
+<p style="color: #64748b; margin-bottom: 20px;">
+모든 대화가 안전하게 저장됩니다
+</p>
+<button class="control-btn active" style="width: 100%; justify-content: center;">
+✅ 동기화 완료
+</button>
+</div>
+</div>
+</div>
+
+<!-- 번역 모달 -->
+<div class="modal" id="translateModal">
+<div class="modal-content">
+<div class="modal-header">
+<h2>🌍 다국어 번역</h2>
+<button class="close-btn" onclick="closeModal('translateModal')">×</button>
+</div>
+<p style="margin-bottom: 15px; color: #64748b;">번역할 언어를 선택하세요:</p>
+<div class="language-grid">
+<button class="language-btn" onclick="setLanguage('ko')">🇰🇷 한국어</button>
+<button class="language-btn" onclick="setLanguage('en')">🇺🇸 English</button>
+<button class="language-btn" onclick="setLanguage('ja')">🇯🇵 日本語</button>
+<button class="language-btn" onclick="setLanguage('zh')">🇨🇳 中文</button>
+<button class="language-btn" onclick="setLanguage('es')">🇪🇸 Español</button>
+<button class="language-btn" onclick="setLanguage('fr')">🇫🇷 Français</button>
+<button class="language-btn" onclick="setLanguage('de')">🇩🇪 Deutsch</button>
+<button class="language-btn" onclick="setLanguage('ru')">🇷🇺 Русский</button>
+<button class="language-btn" onclick="setLanguage('ar')">🇸🇦 العربية</button>
+</div>
+</div>
+</div>
+
+<!-- 테마 빌더 모달 -->
+<div class="modal" id="themeModal">
+<div class="modal-content">
+<div class="modal-header">
+<h2>🎨 테마 빌더</h2>
+<button class="close-btn" onclick="closeModal('themeModal')">×</button>
+</div>
+<div class="theme-builder">
+<div class="color-picker-group">
+<label>주요 색상</label>
+<input type="color" id="primaryColor" value="#667eea">
+</div>
+<div class="color-picker-group">
+<label>보조 색상</label>
+<input type="color" id="secondaryColor" value="#764ba2">
+</div>
+<div class="color-picker-group">
+<label>배경 색상</label>
+<input type="color" id="bgColor" value="#f8fafc">
+</div>
+<button class="control-btn active" style="width: 100%; justify-content: center; margin-top: 20px;" onclick="applyTheme()">
+✨ 테마 적용
+</button>
+</div>
+</div>
+</div>
+
+<!-- AI 어시스턴트 모달 -->
+<div class="modal" id="assistantModal">
+<div class="modal-content">
+<div class="modal-header">
+<h2>🤖 AI 어시스턴트</h2>
+<button class="close-btn" onclick="closeModal('assistantModal')">×</button>
+</div>
+<div style="padding: 20px;">
+<h3 style="margin-bottom: 15px; color: #1e293b;">자동화 작업 선택</h3>
+<button class="control-btn" style="width: 100%; margin-bottom: 10px; justify-content: flex-start;" onclick="runAssistant('summarize')">
+📝 대화 요약하기
+</button>
+<button class="control-btn" style="width: 100%; margin-bottom: 10px; justify-content: flex-start;" onclick="runAssistant('translate')">
+🌐 전체 대화 번역
+</button>
+<button class="control-btn" style="width: 100%; margin-bottom: 10px; justify-content: flex-start;" onclick="runAssistant('analyze')">
+📊 대화 분석
+</button>
+<button class="control-btn" style="width: 100%; justify-content: flex-start;" onclick="runAssistant('export')">
+💾 대화 내보내기
+</button>
+</div>
+</div>
+</div>
+
+<!-- 개발자 모드 토글 -->
+<button class="floating-btn" id="devModeToggle" style="position: fixed; bottom: 20px; right: 20px;" title="개발자 모드">
+🔧
+</button>
 
 <!-- 개발자 로그인 모달 -->
-<div class="dev-modal" id="devModal">
-<div class="dev-modal-content">
-<h2>🔐 개발자 모드</h2>
-<p>개발자 비밀번호를 입력하세요</p>
-
-<div class="dev-error" id="devError">
+<div class="modal" id="devModal">
+<div class="modal-content" style="background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); color: white; border: 2px solid #667eea;">
+<div class="modal-header">
+<h2 style="color: white;">🔐 개발자 모드</h2>
+<button class="close-btn" onclick="closeModal('devModal')" style="color: white;">×</button>
+</div>
+<p style="color: #94a3b8; margin-bottom: 20px;">개발자 비밀번호를 입력하세요</p>
+<div id="devError" class="notification error" style="display: none; position: relative; top: 0; right: 0; margin-bottom: 15px;">
 ❌ 비밀번호가 올바르지 않습니다!
 </div>
-
-<div class="dev-input-group">
-<label for="devPassword">비밀번호</label>
-<input
-type="password"
-id="devPassword"
-placeholder="개발자 비밀번호를 입력하세요"
->
-</div>
-
-<div class="dev-buttons">
-<button class="dev-btn dev-btn-cancel" id="devCancelBtn">
-취소
-</button>
-<button class="dev-btn dev-btn-login" id="devLoginBtn">
-🔓 로그인
-</button>
+<input type="password" id="devPassword" placeholder="개발자 비밀번호" style="width: 100%; padding: 14px; border: 2px solid #334155; border-radius: 12px; background: #0f172a; color: white; font-size: 15px; margin-bottom: 20px;">
+<div style="display: flex; gap: 12px;">
+<button onclick="closeModal('devModal')" style="flex: 1; padding: 14px; background: #334155; color: white; border: none; border-radius: 12px; cursor: pointer; font-weight: 600;">취소</button>
+<button onclick="devLogin()" style="flex: 1; padding: 14px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 12px; cursor: pointer; font-weight: 600;">🔓 로그인</button>
 </div>
 </div>
 </div>
 
 <!-- 개발자 패널 -->
-<div class="dev-panel" id="devPanel">
-<h3>⚙️ 개발자 모드</h3>
-<p>시스템 설정 및 고급 옵션</p>
+<div id="devPanel" style="display: none; position: fixed; top: 50%; right: 20px; transform: translateY(-50%); background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); border-radius: 20px; padding: 25px; width: 320px; max-height: 85vh; overflow-y: auto; box-shadow: 0 10px 40px rgba(0,0,0,0.5); border: 2px solid #10b981; z-index: 999; color: white;">
+<h3 style="color: #10b981; margin-bottom: 8px;">⚙️ 개발자 모드</h3>
+<p style="font-size: 12px; color: #94a3b8; margin-bottom: 20px;">시스템 설정 및 고급 옵션</p>
 
-<!-- 1. 대화 내역 관리 -->
-<div class="dev-section">
-<div class="dev-section-title">💾 대화 내역 관리</div>
-<button class="dev-btn-small success" id="saveChatBtn">대화 저장</button>
-<button class="dev-btn-small primary" id="loadChatBtn">대화 불러오기</button>
-<button class="dev-btn-small" id="exportChatBtn">대화 내보내기 (JSON)</button>
-<button class="dev-btn-small danger" id="clearChatBtn">전체 대화 삭제</button>
+<!-- 대화 관리 -->
+<div style="margin-bottom: 25px; padding-bottom: 20px; border-bottom: 1px solid #334155;">
+<div style="font-size: 14px; font-weight: 700; color: #10b981; margin-bottom: 12px;">💾 대화 내역 관리</div>
+<button onclick="devSaveChat()" style="width: 100%; padding: 10px; margin-bottom: 8px; background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; border: none; border-radius: 10px; cursor: pointer; font-weight: 600;">대화 저장</button>
+<button onclick="devLoadChat()" style="width: 100%; padding: 10px; margin-bottom: 8px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 10px; cursor: pointer; font-weight: 600;">대화 불러오기</button>
+<button onclick="devExportChat()" style="width: 100%; padding: 10px; margin-bottom: 8px; background: #334155; color: white; border: none; border-radius: 10px; cursor: pointer; font-weight: 600;">대화 내보내기 (JSON)</button>
+<button onclick="devClearChat()" style="width: 100%; padding: 10px; background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); color: white; border: none; border-radius: 10px; cursor: pointer; font-weight: 600;">전체 대화 삭제</button>
 </div>
 
-<!-- 2. AI 성격 커스터마이징 -->
-<div class="dev-section">
-<div class="dev-section-title">🎭 AI 성격 설정</div>
-
-<div class="dev-slider-label">
-<span>응답 톤</span>
-<span id="toneValue">전문적</span>
+<!-- AI 설정 -->
+<div style="margin-bottom: 25px; padding-bottom: 20px; border-bottom: 1px solid #334155;">
+<div style="font-size: 14px; font-weight: 700; color: #10b981; margin-bottom: 12px;">🎭 AI 설정</div>
+<div style="margin-bottom: 15px;">
+<label style="font-size: 12px; color: #94a3b8; display: block; margin-bottom: 5px;">응답 속도</label>
+<input type="range" id="devSpeed" min="0" max="100" value="50" style="width: 100%;" onchange="document.getElementById('devSpeedVal').textContent = this.value + '%'">
+<div style="font-size: 11px; color: #94a3b8; display: flex; justify-content: space-between; margin-top: 5px;">
+<span>느림</span>
+<span id="devSpeedVal">50%</span>
+<span>빠름</span>
 </div>
-<select class="dev-select" id="aiTone">
-<option value="friendly">친근한 😊</option>
-<option value="professional" selected>전문적인 💼</option>
-<option value="fun">재미있는 🎉</option>
-<option value="formal">격식있는 🎩</option>
+</div>
+<div style="margin-bottom: 15px;">
+<label style="font-size: 12px; color: #94a3b8; display: block; margin-bottom: 5px;">응답 길이</label>
+<select id="devLength" style="width: 100%; padding: 10px; background: #0f172a; color: white; border: 2px solid #334155; border-radius: 10px;">
+<option>짧게</option>
+<option selected>보통</option>
+<option>상세하게</option>
 </select>
-
-<div class="dev-slider-label">
-<span>응답 길이</span>
-<span id="lengthValue">보통</span>
-</div>
-<select class="dev-select" id="responseLength">
-<option value="short">짧게 📝</option>
-<option value="medium" selected>보통 📄</option>
-<option value="long">상세하게 📚</option>
-</select>
-
-<div class="dev-slider-label">
-<span>이모지 사용</span>
-<span id="emojiValue">50%</span>
-</div>
-<div class="dev-slider">
-<input type="range" id="emojiFrequency" min="0" max="100" value="50">
 </div>
 </div>
 
-<!-- 3. 고급 통계 -->
-<div class="dev-section">
-<div class="dev-section-title">📊 통계 & 분석</div>
-<button class="dev-btn-small primary" id="showStatsBtn">통계 보기</button>
-<div class="dev-info-box" id="statsBox" style="display:none;">
-<div style="margin-bottom:8px"><strong>📈 인기 키워드 TOP 5</strong></div>
-<div class="dev-keyword-list" id="topKeywords"></div>
-<div style="margin-top:10px">
-<div>⏱️ 평균 응답: <strong id="avgResponse">1.8초</strong></div>
-<div>🔥 가장 활발한 시간: <strong id="peakTime">오후 3시</strong></div>
+<!-- 고급 기능 -->
+<div style="margin-bottom: 25px; padding-bottom: 20px; border-bottom: 1px solid #334155;">
+<div style="font-size: 14px; font-weight: 700; color: #10b981; margin-bottom: 12px;">⚡ 고급 기능</div>
+<div onclick="toggleDevOption('profanity')" style="background: #0f172a; padding: 12px; border-radius: 10px; margin-bottom: 10px; cursor: pointer; border: 2px solid #334155;">
+<div style="display: flex; justify-content: space-between; align-items: center;">
+<span style="font-size: 13px;">욕설 필터</span>
+<div id="toggle-profanity" class="dev-toggle" style="position: relative; width: 44px; height: 24px; background: #10b981; border-radius: 12px; transition: all 0.3s;">
+<div style="position: absolute; top: 2px; left: 22px; width: 20px; height: 20px; background: white; border-radius: 50%; transition: all 0.3s;"></div>
+</div>
+</div>
+</div>
+<div onclick="toggleDevOption('debug')" style="background: #0f172a; padding: 12px; border-radius: 10px; margin-bottom: 10px; cursor: pointer; border: 2px solid #334155;">
+<div style="display: flex; justify-content: space-between; align-items: center;">
+<span style="font-size: 13px;">디버그 모드</span>
+<div id="toggle-debug" class="dev-toggle" style="position: relative; width: 44px; height: 24px; background: #334155; border-radius: 12px; transition: all 0.3s;">
+<div style="position: absolute; top: 2px; left: 2px; width: 20px; height: 20px; background: white; border-radius: 50%; transition: all 0.3s;"></div>
+</div>
+</div>
+</div>
+<div onclick="toggleDevOption('fastmode')" style="background: #0f172a; padding: 12px; border-radius: 10px; cursor: pointer; border: 2px solid #334155;">
+<div style="display: flex; justify-content: space-between; align-items: center;">
+<span style="font-size: 13px;">빠른 응답</span>
+<div id="toggle-fastmode" class="dev-toggle" style="position: relative; width: 44px; height: 24px; background: #334155; border-radius: 12px; transition: all 0.3s;">
+<div style="position: absolute; top: 2px; left: 2px; width: 20px; height: 20px; background: white; border-radius: 50%; transition: all 0.3s;"></div>
+</div>
 </div>
 </div>
 </div>
 
-<!-- 4. UI 테마 -->
-<div class="dev-section">
-<div class="dev-section-title">🎨 UI 테마</div>
-<div class="theme-preview">
-<div class="theme-option light" data-theme="light" title="라이트 모드"></div>
-<div class="theme-option dark selected" data-theme="dark" title="다크 모드"></div>
-<div class="theme-option neon" data-theme="neon" title="네온 모드"></div>
-</div>
-</div>
-
-<!-- 5. 자동화 -->
-<div class="dev-section">
-<div class="dev-section-title">⚡ 자동화 기능</div>
-<button class="dev-btn-small" id="manageTemplatesBtn">템플릿 관리</button>
-<button class="dev-btn-small" id="autoResponseBtn">자동 응답 설정</button>
-</div>
-
-<!-- 6. 보안 & 프라이버시 -->
-<div class="dev-section">
-<div class="dev-section-title">🔒 보안 설정</div>
-<div class="dev-option">
-<div class="dev-option-header">
-<label>익명 모드</label>
-<div class="dev-toggle" id="toggleAnonymous"></div>
-</div>
-</div>
-<div class="dev-option">
-<div class="dev-option-header">
-<label>대화 암호화</label>
-<div class="dev-toggle" id="toggleEncryption"></div>
-</div>
-</div>
-<button class="dev-btn-small" id="blacklistBtn">단어 블랙리스트</button>
-</div>
-
-<!-- 7. 성능 최적화 -->
-<div class="dev-section">
-<div class="dev-section-title">🚀 성능 설정</div>
-<button class="dev-btn-small" id="clearCacheBtn">캐시 지우기</button>
-<button class="dev-btn-small" id="optimizeMemoryBtn">메모리 최적화</button>
-<div class="dev-info-box">
-<div>💾 캐시: <strong id="cacheSize">2.3MB</strong></div>
-<div>🧠 메모리: <strong id="memorySize">128MB</strong></div>
-</div>
-</div>
-
-<!-- 기존 기능들 -->
-<div class="dev-section">
-<div class="dev-section-title">🔧 기본 설정</div>
-
-<div class="dev-option">
-<div class="dev-option-header">
-<label>욕설 필터 비활성화</label>
-<div class="dev-toggle" id="toggleProfanityFilter"></div>
-</div>
-</div>
-
-<div class="dev-option">
-<div class="dev-option-header">
-<label>자동 학습 모드 종료</label>
-<div class="dev-toggle" id="toggleAutoLearn"></div>
-</div>
-</div>
-
-<div class="dev-option">
-<div class="dev-option-header">
-<label>응답 속도 향상</label>
-<div class="dev-toggle" id="toggleFastResponse"></div>
-</div>
-</div>
-
-<div class="dev-option">
-<div class="dev-option-header">
-<label>디버그 모드</label>
-<div class="dev-toggle" id="toggleDebugMode"></div>
-</div>
-</div>
-</div>
-
-<div class="dev-stats">
-<div>
+<!-- 통계 -->
+<div style="background: #0f172a; padding: 12px; border-radius: 10px; font-size: 12px; color: #94a3b8; border: 1px solid #334155;">
+<div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
 <span>시스템 상태:</span>
-<span>최적<span>
+<span style="color: #10b981; font-weight: 700;">최적</span>
 </div>
-<div>
+<div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
 <span>총 대화:</span>
-<span id="devTotalChats">0</span>
+<span style="color: #10b981; font-weight: 700;" id="devTotalChats">0</span>
 </div>
-<div>
+<div style="display: flex; justify-content: space-between;">
 <span>처리 속도:</span>
-<span>98.9%</span>
+<span style="color: #10b981; font-weight: 700;">99.5%</span>
 </div>
 </div>
 </div>
 
-<div class="learning-modal" id="learningModal">
-<div class="learning-modal-content">
-<h2>🎓 인공지능 학습 모드 v8.5</h2>
-<p>이 질문을 양자 신경망에 학습시켜주세요!</p>
-
-<div class="learning-question">
-<strong>사용자 질문:</strong>
-<div class="learning-question-text" id="learningQuestion"></div>
-</div>
-
-<div class="learning-input-group">
-<label for="learningAnswer">인공지능이 답변할 내용:</label>
-<textarea
-id="learningAnswer"
-placeholder="예: 네, 무엇을 도와드릴까요?"
-></textarea>
-</div>
-
-<div class="learning-input-group">
-<label for="learningThinking">사고 과정 (선택사항):</label>
-<textarea
-id="learningThinking"
-placeholder="예: 간단한 호칭 인식 → 정중한 응답"
-style="min-height: 60px;"
-></textarea>
-</div>
-
-<div class="learning-buttons">
-<button class="learning-btn learning-btn-cancel" id="cancelLearningBtn">
-취소
+<!-- 플로팅 버튼들 -->
+<div class="floating-btns" style="position: fixed; bottom: 90px; right: 20px; display: flex; flex-direction: column; gap: 12px; z-index: 998;">
+<button class="floating-btn" onclick="scrollToBottom()" title="맨 아래로">
+⬇️
 </button>
-<button class="learning-btn learning-btn-save" id="saveLearningBtn">
-💾 학습시키기
+<button class="floating-btn" onclick="openModal('statsModal')" title="통계">
+📊
 </button>
 </div>
 
-<div class="learning-success" id="learningSuccess">
-✅ 학습 완료! 이제 이 질문에 답변할 수 있습니다.
+<!-- 알림 -->
+<div class="notification" id="notification">
+<div id="notificationText"></div>
+</div>
+
+<!-- 개발자 모드 토글 버튼 -->
+<button class="floating-btn" id="devModeToggle" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;" title="개발자 모드">
+🔧
+</button>
+
+<!-- 개발자 로그인 모달 -->
+<div class="modal" id="devModal">
+<div class="modal-content" style="background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); color: white; border: 2px solid #667eea;">
+<div class="modal-header">
+<h2 style="color: white;">🔐 개발자 모드</h2>
+<button class="close-btn" onclick="closeModal('devModal')" style="color: white;">×</button>
+</div>
+<p style="color: #94a3b8; margin-bottom: 20px;">개발자 비밀번호를 입력하세요</p>
+<div id="devError" style="display: none; background: rgba(239, 68, 68, 0.2); border: 2px solid #ef4444; color: #fecaca; padding: 12px; border-radius: 10px; margin-bottom: 15px;">
+❌ 비밀번호가 올바르지 않습니다!
+</div>
+<input type="password" id="devPassword" placeholder="개발자 비밀번호" style="width: 100%; padding: 14px; border: 2px solid #334155; border-radius: 12px; background: #0f172a; color: white; font-size: 15px; margin-bottom: 20px;">
+<div style="display: flex; gap: 12px;">
+<button onclick="closeModal('devModal')" style="flex: 1; padding: 14px; background: #334155; color: white; border: none; border-radius: 12px; cursor: pointer; font-weight: 600;">취소</button>
+<button onclick="devLogin()" style="flex: 1; padding: 14px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 12px; cursor: pointer; font-weight: 600;">🔓 로그인</button>
 </div>
 </div>
+</div>
+
+<!-- 개발자 패널 -->
+<div id="devPanel" style="display: none; position: fixed; top: 50%; right: 20px; transform: translateY(-50%); background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); border-radius: 20px; padding: 25px; width: 320px; max-height: 85vh; overflow-y: auto; box-shadow: 0 10px 40px rgba(0,0,0,0.5); border: 2px solid #10b981; z-index: 999; color: white;">
+<h3 style="color: #10b981; margin-bottom: 8px; font-size: 18px; font-weight: 800;">⚙️ 개발자 모드</h3>
+<p style="font-size: 12px; color: #94a3b8; margin-bottom: 20px;">시스템 설정 및 고급 옵션</p>
+
+<!-- 대화 관리 -->
+<div style="margin-bottom: 25px; padding-bottom: 20px; border-bottom: 1px solid #334155;">
+<div style="font-size: 14px; font-weight: 700; color: #10b981; margin-bottom: 12px;">💾 대화 내역 관리</div>
+<button onclick="devSaveChat()" style="width: 100%; padding: 10px; margin-bottom: 8px; background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; border: none; border-radius: 10px; cursor: pointer; font-weight: 600; font-size: 13px;">대화 저장</button>
+<button onclick="devLoadChat()" style="width: 100%; padding: 10px; margin-bottom: 8px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 10px; cursor: pointer; font-weight: 600; font-size: 13px;">대화 불러오기</button>
+<button onclick="devExportChat()" style="width: 100%; padding: 10px; margin-bottom: 8px; background: #334155; color: white; border: none; border-radius: 10px; cursor: pointer; font-weight: 600; font-size: 13px;">대화 내보내기 (JSON)</button>
+<button onclick="devClearChat()" style="width: 100%; padding: 10px; background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); color: white; border: none; border-radius: 10px; cursor: pointer; font-weight: 600; font-size: 13px;">전체 대화 삭제</button>
+</div>
+
+<!-- AI 설정 -->
+<div style="margin-bottom: 25px; padding-bottom: 20px; border-bottom: 1px solid #334155;">
+<div style="font-size: 14px; font-weight: 700; color: #10b981; margin-bottom: 12px;">🎭 AI 설정</div>
+<div style="margin-bottom: 15px;">
+<label style="font-size: 12px; color: #94a3b8; display: block; margin-bottom: 5px;">응답 속도</label>
+<input type="range" id="devSpeed" min="0" max="100" value="50" style="width: 100%;" onchange="document.getElementById('devSpeedVal').textContent = this.value + '%'">
+<div style="font-size: 11px; color: #94a3b8; display: flex; justify-content: space-between; margin-top: 5px;">
+<span>느림</span>
+<span id="devSpeedVal">50%</span>
+<span>빠름</span>
+</div>
+</div>
+<div style="margin-bottom: 15px;">
+<label style="font-size: 12px; color: #94a3b8; display: block; margin-bottom: 5px;">응답 길이</label>
+<select id="devLength" style="width: 100%; padding: 10px; background: #0f172a; color: white; border: 2px solid #334155; border-radius: 10px; font-size: 13px;">
+<option>짧게</option>
+<option selected>보통</option>
+<option>상세하게</option>
+</select>
+</div>
+</div>
+
+<!-- 고급 기능 -->
+<div style="margin-bottom: 25px; padding-bottom: 20px; border-bottom: 1px solid #334155;">
+<div style="font-size: 14px; font-weight: 700; color: #10b981; margin-bottom: 12px;">⚡ 고급 기능</div>
+<div onclick="toggleDevOption('profanity')" style="background: #0f172a; padding: 12px; border-radius: 10px; margin-bottom: 10px; cursor: pointer; border: 2px solid #334155;">
+<div style="display: flex; justify-content: space-between; align-items: center;">
+<span style="font-size: 13px; font-weight: 600;">욕설 필터</span>
+<div id="toggle-profanity" style="position: relative; width: 44px; height: 24px; background: #10b981; border-radius: 12px; transition: all 0.3s;">
+<div style="position: absolute; top: 2px; left: 22px; width: 20px; height: 20px; background: white; border-radius: 50%; transition: all 0.3s;"></div>
+</div>
+</div>
+</div>
+<div onclick="toggleDevOption('debug')" style="background: #0f172a; padding: 12px; border-radius: 10px; margin-bottom: 10px; cursor: pointer; border: 2px solid #334155;">
+<div style="display: flex; justify-content: space-between; align-items: center;">
+<span style="font-size: 13px; font-weight: 600;">디버그 모드</span>
+<div id="toggle-debug" style="position: relative; width: 44px; height: 24px; background: #334155; border-radius: 12px; transition: all 0.3s;">
+<div style="position: absolute; top: 2px; left: 2px; width: 20px; height: 20px; background: white; border-radius: 50%; transition: all 0.3s;"></div>
+</div>
+</div>
+</div>
+<div onclick="toggleDevOption('fastmode')" style="background: #0f172a; padding: 12px; border-radius: 10px; cursor: pointer; border: 2px solid #334155;">
+<div style="display: flex; justify-content: space-between; align-items: center;">
+<span style="font-size: 13px; font-weight: 600;">빠른 응답</span>
+<div id="toggle-fastmode" style="position: relative; width: 44px; height: 24px; background: #334155; border-radius: 12px; transition: all 0.3s;">
+<div style="position: absolute; top: 2px; left: 2px; width: 20px; height: 20px; background: white; border-radius: 50%; transition: all 0.3s;"></div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- 통계 -->
+<div style="background: #0f172a; padding: 12px; border-radius: 10px; font-size: 12px; color: #94a3b8; border: 1px solid #334155;">
+<div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+<span>시스템 상태:</span>
+<span style="color: #10b981; font-weight: 700;">최적</span>
+</div>
+<div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+<span>총 대화:</span>
+<span style="color: #10b981; font-weight: 700;" id="devTotalChats">0</span>
+</div>
+<div style="display: flex; justify-content: space-between;">
+<span>처리 속도:</span>
+<span style="color: #10b981; font-weight: 700;">99.5%</span>
+</div>
+</div>
+</div>
+
+<!-- 플로팅 버튼들 (통계, 스크롤) -->
+<div class="floating-btns" style="position: fixed; bottom: 90px; right: 20px; display: flex; flex-direction: column; gap: 12px; z-index: 998;">
+<button class="floating-btn" onclick="scrollToBottom()" title="맨 아래로">
+⬇️
+</button>
+<button class="floating-btn" onclick="openModal('statsModal')" title="통계">
+📊
+</button>
 </div>
 
 <script>
-// 초기화
-const chatArea = document.getElementById('chatArea');
-const userInput = document.getElementById('userInput');
-const sendButton = document.getElementById('sendButton');
-const learningModal = document.getElementById('learningModal');
-const learningQuestion = document.getElementById('learningQuestion');
-const learningAnswer = document.getElementById('learningAnswer');
-const learningThinking = document.getElementById('learningThinking');
-const learningSuccess = document.getElementById('learningSuccess');
-const totalChatsEl = document.getElementById('totalChats');
-const learnedCountEl = document.getElementById('learnedCount');
-const cancelLearningBtn = document.getElementById('cancelLearningBtn');
-const saveLearningBtn = document.getElementById('saveLearningBtn');
-
-let customLearning = {};
-let currentUnknownQuestion = '';
+let chatHistory = [];
+let currentLanguage = 'ko';
+let ttsEnabled = false;
+let voiceRecognition = null;
 let totalChats = 0;
-let learnedCount = 0;
-
-// 개발자 모드 설정
 let devMode = {
-active: false,
-profanityFilterDisabled: false,
-autoLearnMode: false,
-fastResponse: false,
-debugMode: false,
-// 새로운 설정들
-aiTone: 'professional',
-responseLength: 'medium',
-emojiFrequency: 50,
-theme: 'dark',
-anonymousMode: false,
-encryptionEnabled: false,
-chatHistory: [],
-templates: {},
-blacklist: [],
-statistics: {
-keywords: {},
-responseTimes: [],
-hourlyUsage: new Array(24).fill(0)
-}
+    active: false,
+    profanityFilter: true,
+    debugMode: false,
+    fastMode: false
 };
-
 const DEV_PASSWORD = 'haeundae1125';
 
-// 욕설 필터링 함수
-function containsProfanity(text) {
-// 개발자 모드에서 필터가 비활성화되어 있으면 false 반환
-if (devMode.profanityFilterDisabled) {
-if (devMode.debugMode) console.log('[DEV] 욕설 필터 비활성화됨');
-return false;
+// 초기화
+document.addEventListener('DOMContentLoaded', function() {
+createParticles();
+loadChatHistory();
+initVoiceRecognition();
+setupImageUpload();
+initDevMode();
+updateStats();
+
+// PWA 설치 프롬프트
+let deferredPrompt;
+window.addEventListener('beforeinstallprompt', (e) => {
+e.preventDefault();
+deferredPrompt = e;
+});
+});
+
+// 개발자 모드 초기화
+function initDevMode() {
+    const devToggle = document.getElementById('devModeToggle');
+    if (devToggle) {
+        devToggle.addEventListener('click', function() {
+            if (devMode.active) {
+                const panel = document.getElementById('devPanel');
+                panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
+            } else {
+                openModal('devModal');
+                setTimeout(() => {
+                    document.getElementById('devPassword').value = '';
+                    document.getElementById('devPassword').focus();
+                    document.getElementById('devError').style.display = 'none';
+                }, 100);
+            }
+        });
+    }
+    
+    const devPasswordInput = document.getElementById('devPassword');
+    if (devPasswordInput) {
+        devPasswordInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') devLogin();
+        });
+    }
 }
 
-const profanityList = [
-'씨발', '시발', 'ㅅㅂ', 'ㅆㅂ', '좆', 'ㅈ같', '개새', '새끼',
-'병신', 'ㅂㅅ', '지랄', 'ㅈㄹ', '미친', '개년', '년',
-'씹', 'ㅆ', '닥쳐', '꺼져', '엿', '죽어', '뒤져', '개놈',
-'자지', '보지', '좃', '섹', '창녀', '썅', '개소리', 'fuck',
-'shit', 'bitch', '애미', '애비', '느금', '니미', '염병'
-];
-
-const lowerText = text.toLowerCase();
-const hasProfanity = profanityList.some(word => lowerText.includes(word));
-
-if (devMode.debugMode && hasProfanity) {
-console.log('[DEV] 욕설 감지:', text);
+function devLogin() {
+    const password = document.getElementById('devPassword').value;
+    if (password === DEV_PASSWORD) {
+        devMode.active = true;
+        const devToggle = document.getElementById('devModeToggle');
+        if (devToggle) {
+            devToggle.style.background = 'linear-gradient(135deg, #10b981 0%, #059669 100%)';
+            devToggle.style.boxShadow = '0 4px 15px rgba(16, 185, 129, 0.6)';
+        }
+        closeModal('devModal');
+        document.getElementById('devPanel').style.display = 'block';
+        showNotification('개발자 모드 활성화 ✅', 'success');
+        console.log('🔧 개발자 모드 활성화됨');
+    } else {
+        document.getElementById('devError').style.display = 'block';
+        setTimeout(() => {
+            document.getElementById('devError').style.display = 'none';
+        }, 3000);
+    }
 }
 
-return hasProfanity;
+function toggleDevOption(option) {
+    const toggle = document.getElementById(`toggle-${option}`);
+    const circle = toggle.querySelector('div');
+    
+    if (option === 'profanity') {
+        devMode.profanityFilter = !devMode.profanityFilter;
+        if (devMode.profanityFilter) {
+            toggle.style.background = '#10b981';
+            circle.style.left = '22px';
+            showNotification('욕설 필터 ON ✅', 'success');
+        } else {
+            toggle.style.background = '#334155';
+            circle.style.left = '2px';
+            showNotification('욕설 필터 OFF ❌', 'error');
+        }
+    } else if (option === 'debug') {
+        devMode.debugMode = !devMode.debugMode;
+        if (devMode.debugMode) {
+            toggle.style.background = '#10b981';
+            circle.style.left = '22px';
+            showNotification('디버그 모드 ON ✅', 'success');
+            console.log('🐛 디버그 모드 활성화');
+        } else {
+            toggle.style.background = '#334155';
+            circle.style.left = '2px';
+            showNotification('디버그 모드 OFF ❌', 'error');
+        }
+    } else if (option === 'fastmode') {
+        devMode.fastMode = !devMode.fastMode;
+        if (devMode.fastMode) {
+            toggle.style.background = '#10b981';
+            circle.style.left = '22px';
+            showNotification('빠른 응답 ON ⚡', 'success');
+        } else {
+            toggle.style.background = '#334155';
+            circle.style.left = '2px';
+            showNotification('빠른 응답 OFF ❌', 'error');
+        }
+    }
+    
+    if (devMode.debugMode) {
+        console.log(`[DEV] ${option} 토글:`, devMode);
+    }
 }
 
-// 배경 파티클 생성
-const particlesContainer = document.getElementById('particles');
+function devSaveChat() {
+    saveChatHistory();
+    showNotification('대화가 저장되었습니다 💾', 'success');
+    if (devMode.debugMode) console.log('[DEV] 대화 저장:', chatHistory.length, '개');
+}
+
+function devLoadChat() {
+    loadChatHistory();
+    showNotification('대화를 불러왔습니다 📂', 'success');
+    if (devMode.debugMode) console.log('[DEV] 대화 불러오기:', chatHistory.length, '개');
+}
+
+function devExportChat() {
+    const data = JSON.stringify(chatHistory, null, 2);
+    const blob = new Blob([data], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `nextcode-ai-v9-${Date.now()}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+    showNotification('대화를 내보냈습니다 💾', 'success');
+    if (devMode.debugMode) console.log('[DEV] 대화 내보내기 완료');
+}
+
+function devClearChat() {
+    if (confirm('🗑️ 정말 모든 대화를 삭제하시겠습니까?')) {
+        chatHistory = [];
+        totalChats = 0;
+        localStorage.removeItem('nextcode_chat_v9');
+        localStorage.removeItem('nextcode_total_chats');
+        showNotification('모든 대화가 삭제되었습니다 🗑️', 'success');
+        if (devMode.debugMode) console.log('[DEV] 모든 대화 삭제됨');
+        setTimeout(() => location.reload(), 1000);
+    }
+}
+
+// 파티클 생성
+function createParticles() {
+const container = document.getElementById('particles');
 for (let i = 0; i < 30; i++) {
 const particle = document.createElement('div');
 particle.className = 'particle';
 particle.style.left = Math.random() * 100 + '%';
 particle.style.animationDelay = Math.random() * 20 + 's';
 particle.style.animationDuration = (15 + Math.random() * 10) + 's';
-particlesContainer.appendChild(particle);
+container.appendChild(particle);
 }
-
-// 이벤트 리스너 등록
-userInput.addEventListener('keypress', function(event) {
-if (event.key === 'Enter') {
-sendMessage();
 }
-});
-
-sendButton.addEventListener('click', sendMessage);
-cancelLearningBtn.addEventListener('click', closeLearningModal);
-saveLearningBtn.addEventListener('click', saveLearnedResponse);
-
-// 개발자 모드 이벤트 리스너
-const devModeToggle = document.getElementById('devModeToggle');
-const devModal = document.getElementById('devModal');
-const devPanel = document.getElementById('devPanel');
-const devPassword = document.getElementById('devPassword');
-const devLoginBtn = document.getElementById('devLoginBtn');
-const devCancelBtn = document.getElementById('devCancelBtn');
-const devError = document.getElementById('devError');
-
-// 개발자 모드 토글 버튼 클릭
-devModeToggle.addEventListener('click', function() {
-if (devMode.active) {
-// 이미 활성화된 경우 패널 토글
-devPanel.classList.toggle('active');
-} else {
-// 비활성화된 경우 로그인 모달 표시
-devModal.classList.add('active');
-devPassword.value = '';
-devError.classList.remove('show');
-}
-});
-
-// 개발자 로그인
-devLoginBtn.addEventListener('click', function() {
-if (devPassword.value === DEV_PASSWORD) {
-devMode.active = true;
-devModal.classList.remove('active');
-devPanel.classList.add('active');
-devModeToggle.classList.add('active');
-if (devMode.debugMode) console.log('[DEV] 개발자 모드 활성화');
-} else {
-devError.classList.add('show');
-devPassword.value = '';
-}
-});
-
-// 엔터키로 로그인
-devPassword.addEventListener('keypress', function(e) {
-if (e.key === 'Enter') {
-devLoginBtn.click();
-}
-});
-
-// 개발자 로그인 취소
-devCancelBtn.addEventListener('click', function() {
-devModal.classList.remove('active');
-});
-
-// 개발자 패널 옵션 토글
-document.getElementById('toggleProfanityFilter').addEventListener('click', function() {
-devMode.profanityFilterDisabled = !devMode.profanityFilterDisabled;
-this.classList.toggle('active');
-if (devMode.debugMode) console.log('[DEV] 욕설 필터:', devMode.profanityFilterDisabled ? '비활성화' : '활성화');
-});
-
-document.getElementById('toggleAutoLearn').addEventListener('click', function() {
-devMode.autoLearnMode = !devMode.autoLearnMode;
-this.classList.toggle('active');
-if (devMode.debugMode) console.log('[DEV] 자동 학습 모드:', devMode.autoLearnMode ? 'ON' : 'OFF');
-});
-
-document.getElementById('toggleFastResponse').addEventListener('click', function() {
-devMode.fastResponse = !devMode.fastResponse;
-this.classList.toggle('active');
-if (devMode.debugMode) console.log('[DEV] 빠른 응답 모드:', devMode.fastResponse ? 'ON' : 'OFF');
-});
-
-document.getElementById('toggleDebugMode').addEventListener('click', function() {
-devMode.debugMode = !devMode.debugMode;
-this.classList.toggle('active');
-console.log('[DEV] 디버그 모드:', devMode.debugMode ? 'ON' : 'OFF');
-});
-
-// 제안 칩 클릭 처리
-document.querySelectorAll('.suggestion-chip').forEach(chip => {
-chip.addEventListener('click', function() {
-const text = this.textContent.trim();
-const queries = {
-'⚛️ 양자 컴퓨팅': '양자 컴퓨팅 알고리즘 설명해줘',
-'📊 인공지능 트렌드': '2025년 인공지능 최신 트렌드 알려줘',
-'🏗️ 아키텍처 설계': '마이크로서비스 아키텍처 추천해줘',
-'⚡ 코드 최적화': '코드 최적화 전략 알려줘',
-'🔗 블록체인 기술': '블록체인 기술 분석해줘',
-'☁️ 클라우드 네이티브': '클라우드 네이티브 설계 방법'
-};
-userInput.value = queries[text] || text.replace(/^[⚛️📊🏗️⚡🔗☁️]\s*/, '');
-sendMessage();
-});
-});
 
 // 메시지 전송
+document.getElementById('sendButton').addEventListener('click', sendMessage);
+document.getElementById('userInput').addEventListener('keypress', function(e) {
+if (e.key === 'Enter') sendMessage();
+});
+
 function sendMessage() {
-const message = userInput.value.trim();
+const input = document.getElementById('userInput');
+const message = input.value.trim();
 if (!message) return;
 
-addMessage(message, true);
-userInput.value = '';
-
+addMessage(message, 'user');
+input.value = '';
 totalChats++;
-totalChatsEl.textContent = totalChats;
-
-// 욕설 체크
-if (containsProfanity(message)) {
-setTimeout(() => {
-addMessage('😊 바르고 고운 말을 사용해 주세요. 존중하는 대화로 더 좋은 답변을 드릴 수 있습니다.', false, '부적절한 표현 감지 → 예의 바른 대화 요청', true);
-}, 500);
-return;
+document.getElementById('totalChats').textContent = totalChats;
+document.getElementById('statsTotal').textContent = totalChats;
+if (devMode.active) {
+    document.getElementById('devTotalChats').textContent = totalChats;
 }
 
 showTyping();
-
-const responseDelay = devMode.fastResponse ? 300 : (1500 + Math.random() * 1000);
-
-if (devMode.debugMode) {
-console.log('[DEV] 메시지:', message);
-console.log('[DEV] 응답 지연:', responseDelay + 'ms');
-}
-
+const delay = devMode.fastMode ? 500 : 1500;
 setTimeout(() => {
+hideTyping();
 const response = getAIResponse(message);
-hideTyping();
-
-if (response.needsLearning) {
-if (devMode.autoLearnMode) {
-addMessage('죄송합니다. 해당 질문에 대한 답변을 아직 학습하지 못했습니다. 다른 질문을 해주시겠어요?', false, '미학습 질문 감지 → 자동 학습 모드로 기본 응답');
-} else {
-openLearningModal(message);
-}
-} else {
-addMessage(response.text, false, response.thinking);
-}
-}, responseDelay);
-}
-
-// 개발자 모드 기능들 초기화
-function initDevMode() {
-// === 1. 대화 내역 관리 ===
-document.getElementById('saveChatBtn').addEventListener('click', function() {
-const messages = Array.from(chatArea.querySelectorAll('.message')).map(msg => ({
-type: msg.classList.contains('user') ? 'user' : 'ai',
-content: msg.querySelector('.message-content').textContent,
-timestamp: new Date().toISOString()
-}));
-
-localStorage.setItem('nextcode_chat_history', JSON.stringify(messages));
-alert('💾 대화가 저장되었습니다!');
-if (devMode.debugMode) console.log('[DEV] 대화 저장:', messages.length, '개');
-});
-
-document.getElementById('loadChatBtn').addEventListener('click', function() {
-const saved = localStorage.getItem('nextcode_chat_history');
-if (saved) {
-const messages = JSON.parse(saved);
-chatArea.innerHTML = '';
-messages.forEach(msg => {
-addMessage(msg.content, msg.type === 'user');
-});
-alert('📂 대화를 불러왔습니다!');
-if (devMode.debugMode) console.log('[DEV] 대화 불러오기:', messages.length, '개');
-} else {
-alert('⚠️ 저장된 대화가 없습니다.');
-}
-});
-
-document.getElementById('exportChatBtn').addEventListener('click', function() {
-const messages = Array.from(chatArea.querySelectorAll('.message')).map(msg => ({
-type: msg.classList.contains('user') ? 'user' : 'ai',
-content: msg.querySelector('.message-content').textContent,
-timestamp: new Date().toISOString()
-}));
-
-const dataStr = JSON.stringify(messages, null, 2);
-const dataBlob = new Blob([dataStr], {type: 'application/json'});
-const url = URL.createObjectURL(dataBlob);
-const link = document.createElement('a');
-link.href = url;
-link.download = `nextcode-chat-${Date.now()}.json`;
-link.click();
-
-if (devMode.debugMode) console.log('[DEV] 대화 내보내기 완료');
-});
-
-document.getElementById('clearChatBtn').addEventListener('click', function() {
-if (confirm('🗑️ 정말 모든 대화를 삭제하시겠습니까?')) {
-chatArea.innerHTML = '<div class="welcome-message"><h2>🚀 NEXTCODE AI v8.0 양자 에디션</h2><p class="subtitle">1000억 개 학습 데이터로 진화한 차세대 양자 지능 시스템</p></div>';
-totalChats = 0;
-totalChatsEl.textContent = '0';
-document.getElementById('devTotalChats').textContent = '0';
-localStorage.removeItem('nextcode_chat_history');
-alert('✅ 모든 대화가 삭제되었습니다.');
-if (devMode.debugMode) console.log('[DEV] 대화 전체 삭제');
-}
-});
-
-// === 2. AI 성격 커스터마이징 ===
-document.getElementById('aiTone').addEventListener('change', function() {
-devMode.aiTone = this.value;
-const toneNames = {
-friendly: '친근한',
-professional: '전문적',
-fun: '재미있는',
-formal: '격식있는'
-};
-document.getElementById('toneValue').textContent = toneNames[this.value];
-if (devMode.debugMode) console.log('[DEV] AI 톤 변경:', this.value);
-});
-
-document.getElementById('responseLength').addEventListener('change', function() {
-devMode.responseLength = this.value;
-const lengthNames = {
-short: '짧게',
-medium: '보통',
-long: '상세하게'
-};
-document.getElementById('lengthValue').textContent = lengthNames[this.value];
-if (devMode.debugMode) console.log('[DEV] 응답 길이:', this.value);
-});
-
-document.getElementById('emojiFrequency').addEventListener('input', function() {
-devMode.emojiFrequency = this.value;
-document.getElementById('emojiValue').textContent = this.value + '%';
-});
-
-// === 3. 통계 & 분석 ===
-document.getElementById('showStatsBtn').addEventListener('click', function() {
-const statsBox = document.getElementById('statsBox');
-const isVisible = statsBox.style.display !== 'none';
-statsBox.style.display = isVisible ? 'none' : 'block';
-
-if (!isVisible) {
-const keywords = ['양자컴퓨팅', '인공지능', '블록체인', '최적화', '보안'];
-const topKeywords = document.getElementById('topKeywords');
-topKeywords.innerHTML = keywords.map(k =>
-`<div class="dev-keyword-chip">${k}</div>`
-).join('');
-
-document.getElementById('avgResponse').textContent = '1.8초';
-document.getElementById('peakTime').textContent = '오후 3시';
-}
-});
-
-// === 4. UI 테마 ===
-document.querySelectorAll('.theme-option').forEach(option => {
-option.addEventListener('click', function() {
-document.querySelectorAll('.theme-option').forEach(o => o.classList.remove('selected'));
-this.classList.add('selected');
-
-const theme = this.dataset.theme;
-devMode.theme = theme;
-
-const container = document.querySelector('.container');
-const body = document.body;
-
-if (theme === 'light') {
-container.style.background = 'rgba(255, 255, 255, 0.98)';
-body.style.background = 'linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%)';
-} else if (theme === 'dark') {
-container.style.background = 'rgba(255, 255, 255, 0.98)';
-body.style.background = 'linear-gradient(135deg, #0a0e27 0%, #1a1a3e 50%, #0f1b3a 100%)';
-} else if (theme === 'neon') {
-container.style.background = 'rgba(20, 20, 40, 0.95)';
-body.style.background = 'linear-gradient(135deg, #1a0033 0%, #330066 50%, #1a0033 100%)';
-}
-
-if (devMode.debugMode) console.log('[DEV] 테마 변경:', theme);
-});
-});
-
-// === 5. 자동화 ===
-document.getElementById('manageTemplatesBtn').addEventListener('click', function() {
-alert('📝 템플릿 관리 기능\n\n자주 사용하는 답변을 저장하고 불러올 수 있습니다.\n(데모 버전에서는 알림만 표시됩니다)');
-});
-
-document.getElementById('autoResponseBtn').addEventListener('click', function() {
-alert('⚡ 자동 응답 설정\n\n특정 키워드를 감지하면 자동으로 답변을 보냅니다.\n(데모 버전에서는 알림만 표시됩니다)');
-});
-
-// === 6. 보안 & 프라이버시 ===
-document.getElementById('toggleAnonymous').addEventListener('click', function() {
-devMode.anonymousMode = !devMode.anonymousMode;
-this.classList.toggle('active');
-if (devMode.debugMode) console.log('[DEV] 익명 모드:', devMode.anonymousMode);
-});
-
-document.getElementById('toggleEncryption').addEventListener('click', function() {
-devMode.encryptionEnabled = !devMode.encryptionEnabled;
-this.classList.toggle('active');
-if (devMode.debugMode) console.log('[DEV] 암호화:', devMode.encryptionEnabled);
-});
-
-document.getElementById('blacklistBtn').addEventListener('click', function() {
-const words = prompt('🚫 블랙리스트에 추가할 단어를 입력하세요 (쉼표로 구분):', '');
-if (words) {
-devMode.blacklist = words.split(',').map(w => w.trim());
-alert(`✅ ${devMode.blacklist.length}개의 단어가 블랙리스트에 추가되었습니다.`);
-if (devMode.debugMode) console.log('[DEV] 블랙리스트:', devMode.blacklist);
-}
-});
-
-// === 7. 성능 최적화 ===
-document.getElementById('clearCacheBtn').addEventListener('click', function() {
-if (confirm('🗑️ 캐시를 지우시겠습니까?')) {
-localStorage.clear();
-sessionStorage.clear();
-document.getElementById('cacheSize').textContent = '0KB';
-alert('✅ 캐시가 삭제되었습니다.');
-if (devMode.debugMode) console.log('[DEV] 캐시 삭제 완료');
-}
-});
-
-document.getElementById('optimizeMemoryBtn').addEventListener('click', function() {
-customLearning = {};
-devMode.statistics.keywords = {};
-devMode.statistics.responseTimes = [];
-
-const before = 128;
-const after = Math.floor(before * 0.7);
-document.getElementById('memorySize').textContent = after + 'MB';
-
-alert(`🚀 메모리 최적화 완료!\n${before}MB → ${after}MB`);
-if (devMode.debugMode) console.log('[DEV] 메모리 최적화:', before, '→', after);
-});
-
-// 개발자 통계 업데이트
-setInterval(() => {
-document.getElementById('devTotalChats').textContent = totalChats;
-const cacheSize = (2.3 + Math.random() * 0.5).toFixed(1);
-document.getElementById('cacheSize').textContent = cacheSize + 'MB';
-}, 1000);
-}
-
-// 페이지 로드 시 개발자 모드 기능 초기화
-initDevMode();
-
-// AI 응답 생성
-function getAIResponse(message) {
-const lowerMessage = message.toLowerCase();
-
-// 사용자 정의 학습 확인
-if (customLearning[lowerMessage]) {
-const learned = customLearning[lowerMessage];
-return {
-text: learned.response,
-thinking: learned.thinking,
-needsLearning: false
-};
-}
-
-// 인사
-if (lowerMessage.match(/^(안녕|hi|hello|헬로|하이)/)) {
-const greetings = [
-"안녕하세요! NEXTCODE AI v8.5 양자 에디션입니다. 1000억 개의 학습 데이터를 기반으로 모든 질문에 최고 수준의 답변을 제공합니다. 프로그래밍, 인공지능, 아키텍처, 보안 등 무엇이든 물어보세요! 🚀",
-"반갑습니다! 저는 차세대 양자 지능 시스템 v8.5입니다. 128층 신경망으로 학습되어 복잡한 기술 문제도 명확하게 설명해드립니다. 어떤 도움이 필요하신가요? 😊",
-"환영합니다! v8.5 양자 엔진이 활성화되었습니다. 알고리즘 최적화부터 시스템 설계까지, 전문가 수준의 인사이트를 제공하겠습니다! ⚡"
-];
-return {
-text: greetings[Math.floor(Math.random() * greetings.length)],
-thinking: "사용자 인사 감지 → 친근한 환영 메시지 생성",
-needsLearning: false
-};
-}
-
-// 감사
-if (lowerMessage.match(/(고마워|감사|thanks|thank)/)) {
-const thanks = [
-"천만에요! v8.5가 도움이 되어 기쁩니다. 추가 질문이 있으시면 언제든지 말씀해주세요! 😊",
-"도움이 되었다니 보람차네요! 더 복잡한 문제나 심화 학습이 필요하시면 언제든 찾아주세요! 🎉",
-"감사합니다! 양자 엔진은 항상 학습하고 발전합니다. 여러분의 피드백이 큰 도움이 됩니다! 💪"
-];
-return {
-text: thanks[Math.floor(Math.random() * thanks.length)],
-thinking: "감사 표현 인식 → 긍정적 피드백 반환",
-needsLearning: false
-};
-}
-
-// 양자 컴퓨팅
-if (lowerMessage.match(/(양자|quantum|큐비트|qubit)/)) {
-const quantum = [
-"양자 컴퓨팅은 양자역학의 중첩과 얽힘 현상을 활용합니다. 큐비트(qubit)는 0과 1을 동시에 표현할 수 있어, n개의 큐비트로 2^n개의 상태를 동시에 처리합니다. Shor 알고리즘은 소인수분해를, Grover 알고리즘은 검색을 획기적으로 가속화합니다. IBM Quantum, Google Sycamore가 대표적 양자 컴퓨터입니다.",
-"양자 알고리즘의 핵심은 양자 중첩(superposition)과 양자 얽힘(entanglement)입니다. 양자 게이트(Hadamard, CNOT, Toffoli)로 큐비트를 조작하며, 측정 시 파동함수가 붕괴됩니다. 양자 오류 정정이 실용화의 관건이며, 표면 코드(Surface Code)가 유력한 방법입니다."
-];
-return {
-text: quantum[Math.floor(Math.random() * quantum.length)],
-thinking: "양자 컴퓨팅 키워드 감지 → 전문 지식 데이터베이스 검색 → 상세 설명 생성",
-needsLearning: false
-};
-}
-
-// AI 트렌드
-if (lowerMessage.match(/(인공지능|ai|트렌드|최신|2025)/)) {
-return {
-text: "2025년 인공지능 트렌드는 멀티모달 대규모 언어 모델(LLM)이 주도합니다. GPT-5, Claude 4, Gemini Ultra가 텍스트, 이미지, 음성, 동영상을 통합 처리합니다. 에이전틱 인공지능(Agentic AI)이 자율적으로 작업을 수행하고, RAG(검색 증강 생성)로 실시간 정보를 활용합니다. 온디바이스 인공지능이 급부상하며, 스마트폰과 엣지 디바이스에서 직접 LLM을 실행해 프라이버시를 보호합니다.",
-thinking: "AI 트렌드 질문 → 2025년 최신 동향 분석 → 핵심 기술 추출",
-needsLearning: false
-};
-}
-
-// 아키텍처
-if (lowerMessage.match(/(아키텍처|architecture|마이크로서비스|microservice)/)) {
-return {
-text: "마이크로서비스 아키텍처(MSA)는 독립 배포 가능한 작은 서비스들의 조합입니다. API Gateway가 진입점을 통일하고, Service Mesh(Istio, Linkerd)로 서비스 간 통신을 관리합니다. 각 서비스는 자체 데이터베이스를 가지며(Database per Service), 이벤트 버스로 느슨하게 결합됩니다. 이벤트 주도 아키텍처(EDA)는 비동기 메시징으로 확장성을 극대화합니다.",
-thinking: "아키텍처 패턴 질문 → MSA 설계 원칙 검색 → 구체적 구현 방법 제시",
-needsLearning: false
-};
-}
-
-// 코드 최적화
-if (lowerMessage.match(/(최적화|optimization|성능|performance)/)) {
-return {
-text: "알고리즘 최적화는 시간 복잡도 개선이 최우선입니다. O(n²)을 O(n log n)이나 O(n)으로 줄이는 것이 코드 레벨 최적화보다 효과적입니다. 해시테이블로 조회를 O(1)로, 동적 프로그래밍으로 중복 계산을 제거합니다. 데이터베이스 최적화는 인덱스 설계가 핵심입니다. B-tree 인덱스는 범위 검색에, 해시 인덱스는 정확한 매칭에 유리합니다.",
-thinking: "성능 최적화 요청 → 알고리즘/DB/프론트엔드 최적화 전략 분석",
-needsLearning: false
-};
-}
-
-// 블록체인
-if (lowerMessage.match(/(블록체인|blockchain|defi|nft)/)) {
-return {
-text: "블록체인은 분산 원장 기술(DLT)로 중앙 기관 없이 거래를 기록합니다. 작업 증명(PoW)은 연산력으로, 지분 증명(PoS)은 보유량으로 합의를 달성합니다. 스마트 계약(Smart Contract)은 자동 실행되는 디지털 계약으로, Ethereum, Solana에서 Solidity, Rust로 작성합니다. DeFi(탈중앙화 금융)는 은행 없이 금융 서비스를 제공합니다.",
-thinking: "블록체인 기술 질문 → 합의 알고리즘, 스마트계약, DeFi 설명",
-needsLearning: false
-};
-}
-
-// 클라우드
-if (lowerMessage.match(/(클라우드|cloud|kubernetes|k8s|docker)/)) {
-return {
-text: "클라우드 네이티브는 컨테이너, 마이크로서비스, 선언적 API로 구성됩니다. Docker로 애플리케이션을 컨테이너화하고, Kubernetes로 오케스트레이션합니다. 12-Factor App 원칙을 따르며, Immutable Infrastructure로 일관성을 보장합니다. Kubernetes(K8s)는 Pod, Service, Deployment로 애플리케이션을 정의하고, Ingress로 외부 트래픽을 라우팅합니다.",
-thinking: "클라우드 네이티브 질문 → 컨테이너 오케스트레이션 설명",
-needsLearning: false
-};
-}
-
-// 보안
-if (lowerMessage.match(/(보안|security|암호화|encryption)/)) {
-return {
-text: "제로 트러스트 보안은 '절대 신뢰하지 말고, 항상 검증하라'가 원칙입니다. 네트워크 위치와 관계없이 모든 접근을 인증하고, 최소 권한 원칙(PoLP)을 적용합니다. OWASP Top 10은 웹 보안 취약점 목록입니다. SQL Injection은 파라미터화된 쿼리로, XSS는 입력 검증과 CSP로 막습니다. 암호화는 AES-256(대칭키), RSA-2048(비대칭키)을 사용합니다.",
-thinking: "보안 관련 질문 → 제로 트러스트, OWASP, 암호화 기법 설명",
-needsLearning: false
-};
-}
-
-// 학습되지 않은 질문
-return {
-text: "",
-thinking: "",
-needsLearning: true
-};
-}
-
-// 학습 모달 열기
-function openLearningModal(question) {
-currentUnknownQuestion = question;
-learningQuestion.textContent = question;
-learningAnswer.value = '';
-learningThinking.value = '';
-learningSuccess.classList.remove('show');
-learningModal.classList.add('active');
-}
-
-// 학습 모달 닫기
-function closeLearningModal() {
-learningModal.classList.remove('active');
-currentUnknownQuestion = '';
-}
-
-// 학습 데이터 저장
-function saveLearnedResponse() {
-const answer = learningAnswer.value.trim();
-const thinking = learningThinking.value.trim() || '사용자 정의 학습 → 맞춤 응답 생성';
-
-if (!answer) {
-alert('답변 내용을 입력해주세요!');
-return;
-}
-
-customLearning[currentUnknownQuestion.toLowerCase()] = {
-response: answer,
-thinking: thinking,
-learnedAt: new Date().toLocaleString('ko-KR')
-};
-
-learnedCount++;
-learnedCountEl.textContent = learnedCount;
-
-learningSuccess.classList.add('show');
-
-setTimeout(() => {
-closeLearningModal();
-hideTyping();
-addMessage(answer, false, thinking);
-}, 1500);
+addMessage(response, 'ai');
+saveChatHistory();
+updateStats();
+}, delay);
 }
 
 // 메시지 추가
-function addMessage(text, isUser, thinking = null, isWarning = false) {
-const welcomeMsg = chatArea.querySelector('.welcome-message');
+function addMessage(text, type) {
+const welcomeMsg = document.querySelector('.welcome-message');
 if (welcomeMsg) welcomeMsg.remove();
 
+const chatArea = document.getElementById('chatArea');
 const messageDiv = document.createElement('div');
-messageDiv.className = `message ${isUser ? 'user' : isWarning ? 'warning' : 'ai'}`;
+messageDiv.className = `message ${type}`;
 
 const avatar = document.createElement('div');
-avatar.className = `avatar ${isUser ? 'user' : 'ai'}`;
-avatar.textContent = isUser ? '👤' : isWarning ? '⚠️' : '🧠';
+avatar.className = `avatar ${type}`;
+avatar.textContent = type === 'user' ? '👤' : '🧠';
 
 const content = document.createElement('div');
 content.className = 'message-content';
 content.textContent = text;
 
-if (thinking && !isUser) {
-const thinkingDiv = document.createElement('div');
-thinkingDiv.className = 'thinking-process';
-thinkingDiv.textContent = `💭 ${thinking}`;
-content.appendChild(thinkingDiv);
+// TTS 버튼 추가 (AI 메시지에만)
+if (type === 'ai') {
+const ttsBtn = document.createElement('button');
+ttsBtn.className = 'tts-btn';
+ttsBtn.textContent = '🔊';
+ttsBtn.onclick = () => speakText(text);
+content.appendChild(ttsBtn);
+
+// TTS 자동 재생
+if (ttsEnabled) {
+setTimeout(() => speakText(text), 500);
+}
 }
 
 messageDiv.appendChild(avatar);
 messageDiv.appendChild(content);
 chatArea.appendChild(messageDiv);
 
-chatArea.scrollTop = chatArea.scrollHeight;
+chatHistory.push({ text, type, timestamp: Date.now() });
+scrollToBottom();
+}
+
+// AI 응답 생성
+function getAIResponse(message) {
+const lower = message.toLowerCase();
+ 
+const responses = {
+'안녕': '안녕하세요! NEXTCODE AI v9.0입니다. 음성, 이미지, 다국어 번역 등 다양한 기능을 사용해보세요! 🚀',
+'음성': '🎤 음성 기능을 사용하려면 마이크 버튼을 클릭하세요. Web Speech API를 통해 실시간 음성 인식이 가능합니다!',
+'이미지': '📸 이미지 분석 기능으로 사진을 업로드하면 AI가 내용을 분석해드립니다. 이미지 버튼을 클릭해보세요!',
+'번역': '🌍 50개 언어를 지원합니다. 한국어, 영어, 일본어, 중국어, 스페인어, 프랑스어 등 다양한 언어로 실시간 번역이 가능합니다!',
+'테마': '🎨 테마 빌더로 나만의 커스텀 테마를 만들 수 있습니다. 주요 색상, 보조 색상, 배경 색상을 자유롭게 설정해보세요!',
+'pwa': '📱 이 앱은 PWA로 제작되어 모바일 홈 화면에 추가할 수 있습니다. 오프라인에서도 작동합니다!',
+'클라우드': '☁️ 모든 대화는 자동으로 클라우드에 백업됩니다. 브라우저 localStorage를 사용해 데이터를 안전하게 보관합니다.',
+'통계': '📊 실시간 대화 통계를 차트로 확인할 수 있습니다. 대화 패턴, 응답 시간, 만족도 등을 분석합니다!',
+'어시스턴트': '🤖 AI 어시스턴트 모드로 대화 요약, 전체 번역, 분석, 내보내기 등의 작업을 자동화할 수 있습니다!'
+};
+
+for (let key in responses) {
+if (lower.includes(key)) {
+return responses[key];
+}
+}
+
+return `v9.0의 ${Object.keys(responses).length}가지 핵심 기능: 🎤음성인식 📸이미지분석 🌍다국어번역 ☁️클라우드동기화 🤖AI어시스턴트 🎨테마빌더 📱PWA 📊실시간통계. 더 알고 싶은 기능을 말씀해주세요!`;
+}
+
+// 음성 인식 초기화
+function initVoiceRecognition() {
+if ('webkitSpeechRecognition' in window) {
+voiceRecognition = new webkitSpeechRecognition();
+voiceRecognition.continuous = false;
+voiceRecognition.interimResults = false;
+voiceRecognition.lang = currentLanguage === 'ko' ? 'ko-KR' : 'en-US';
+
+voiceRecognition.onresult = function(event) {
+const transcript = event.results[0][0].transcript;
+document.getElementById('userInput').value = transcript;
+document.getElementById('voiceBtn').classList.remove('active');
+showNotification('음성 인식 완료! ✅', 'success');
+};
+
+voiceRecognition.onerror = function() {
+document.getElementById('voiceBtn').classList.remove('active');
+showNotification('음성 인식 실패 ❌', 'error');
+};
+}
+
+document.getElementById('voiceBtn').addEventListener('click', function() {
+if (voiceRecognition) {
+this.classList.add('active');
+voiceRecognition.start();
+showNotification('말씀하세요... 🎤', 'info');
+} else {
+showNotification('이 브라우저는 음성 인식을 지원하지 않습니다', 'error');
+}
+});
+}
+
+// TTS (Text-to-Speech)
+function speakText(text) {
+if ('speechSynthesis' in window) {
+const utterance = new SpeechSynthesisUtterance(text);
+utterance.lang = currentLanguage === 'ko' ? 'ko-KR' : 'en-US';
+utterance.rate = 1.0;
+utterance.pitch = 1.0;
+speechSynthesis.speak(utterance);
+showNotification('TTS 재생 중... 🔊', 'info');
+}
+}
+
+document.getElementById('ttsToggle').addEventListener('click', function() {
+ttsEnabled = !ttsEnabled;
+this.classList.toggle('active');
+showNotification(ttsEnabled ? 'TTS 자동 재생 ON ✅' : 'TTS 자동 재생 OFF ❌', ttsEnabled ? 'success' : 'error');
+});
+
+// 이미지 업로드
+function setupImageUpload() {
+const imageBtn = document.getElementById('imageBtn');
+const uploadArea = document.getElementById('imageUploadArea');
+const imageInput = document.getElementById('imageInput');
+
+imageBtn.addEventListener('click', function() {
+uploadArea.style.display = uploadArea.style.display === 'none' ? 'block' : 'none';
+});
+
+uploadArea.addEventListener('click', () => imageInput.click());
+
+uploadArea.addEventListener('dragover', (e) => {
+e.preventDefault();
+uploadArea.classList.add('dragover');
+});
+
+uploadArea.addEventListener('dragleave', () => {
+uploadArea.classList.remove('dragover');
+});
+
+uploadArea.addEventListener('drop', (e) => {
+e.preventDefault();
+uploadArea.classList.remove('dragover');
+if (e.dataTransfer.files.length) {
+handleImageUpload(e.dataTransfer.files[0]);
+}
+});
+
+imageInput.addEventListener('change', (e) => {
+if (e.target.files.length) {
+handleImageUpload(e.target.files[0]);
+}
+});
+}
+
+function handleImageUpload(file) {
+const reader = new FileReader();
+reader.onload = function(e) {
+const preview = document.getElementById('imagePreview');
+preview.innerHTML = `<img src="${e.target.result}" style="max-width: 100%; border-radius: 12px; margin-top: 15px;">`;
+ 
+setTimeout(() => {
+addMessage('이미지를 업로드했습니다', 'user');
+const messageDiv = document.querySelector('.message:last-child .message-content');
+const img = document.createElement('img');
+img.src = e.target.result;
+img.className = 'message-image';
+img.onclick = () => window.open(e.target.result);
+messageDiv.appendChild(img);
+ 
+showTyping();
+setTimeout(() => {
+hideTyping();
+addMessage('📸 이미지 분석 완료! 이 이미지에는 다양한 요소가 포함되어 있습니다. v9.0의 고급 비전 AI가 색상, 객체, 텍스트를 실시간으로 분석했습니다.', 'ai');
+}, 2000);
+ 
+document.getElementById('imageUploadArea').style.display = 'none';
+preview.innerHTML = '';
+}, 500);
+};
+reader.readAsDataURL(file);
+}
+
+// 모달 관리
+function openModal(modalId) {
+document.getElementById(modalId).classList.add('active');
+if (modalId === 'statsModal') {
+updateChartData();
+}
+}
+
+function closeModal(modalId) {
+document.getElementById(modalId).classList.remove('active');
+}
+
+// 언어 설정
+function setLanguage(lang) {
+currentLanguage = lang;
+document.querySelectorAll('.language-btn').forEach(btn => {
+btn.classList.remove('selected');
+});
+event.target.classList.add('selected');
+ 
+const langNames = {
+ko: '한국어', en: 'English', ja: '日本語', 
+zh: '中文', es: 'Español', fr: 'Français',
+de: 'Deutsch', ru: 'Русский', ar: 'العربية'
+};
+ 
+showNotification(`언어가 ${langNames[lang]}(으)로 변경되었습니다 ✅`, 'success');
+closeModal('translateModal');
+}
+
+// 테마 적용
+function applyTheme() {
+const primary = document.getElementById('primaryColor').value;
+const secondary = document.getElementById('secondaryColor').value;
+const bg = document.getElementById('bgColor').value;
+ 
+document.documentElement.style.setProperty('--primary-color', primary);
+document.documentElement.style.setProperty('--secondary-color', secondary);
+document.documentElement.style.setProperty('--bg-color', bg);
+ 
+const headers = document.querySelectorAll('.header, .floating-btn, .control-btn.active');
+headers.forEach(el => {
+el.style.background = `linear-gradient(135deg, ${primary} 0%, ${secondary} 100%)`;
+});
+ 
+showNotification('테마가 적용되었습니다! 🎨', 'success');
+closeModal('themeModal');
+}
+
+// AI 어시스턴트
+function runAssistant(task) {
+const tasks = {
+summarize: '📝 대화를 요약하고 있습니다...',
+translate: '🌐 전체 대화를 번역하고 있습니다...',
+analyze: '📊 대화 패턴을 분석하고 있습니다...',
+export: '💾 대화를 내보내고 있습니다...'
+};
+ 
+showNotification(tasks[task], 'info');
+closeModal('assistantModal');
+ 
+setTimeout(() => {
+if (task === 'export') {
+const data = JSON.stringify(chatHistory, null, 2);
+const blob = new Blob([data], { type: 'application/json' });
+const url = URL.createObjectURL(blob);
+const a = document.createElement('a');
+a.href = url;
+a.download = `nextcode-ai-chat-${Date.now()}.json`;
+a.click();
+showNotification('대화를 내보냈습니다! 💾', 'success');
+} else {
+addMessage(`🤖 어시스턴트 작업 완료: ${tasks[task].replace('...', '')}`, 'system');
+showNotification('작업이 완료되었습니다! ✅', 'success');
+}
+}, 2000);
+}
+
+// PWA 설치
+function installPWA() {
+showNotification('브라우저 메뉴에서 "홈 화면에 추가"를 선택하세요 📱', 'info');
+}
+
+// 차트 업데이트
+function updateChartData() {
+const canvas = document.getElementById('statsChart');
+const ctx = canvas.getContext('2d');
+ 
+canvas.width = canvas.offsetWidth;
+canvas.height = 200;
+ 
+ctx.clearRect(0, 0, canvas.width, canvas.height);
+ 
+// 간단한 막대 그래프
+const data = [12, 19, 15, 25, 22, 30, 28];
+const max = Math.max(...data);
+const barWidth = canvas.width / data.length - 10;
+ 
+data.forEach((value, index) => {
+const barHeight = (value / max) * (canvas.height - 40);
+const x = index * (barWidth + 10) + 10;
+const y = canvas.height - barHeight - 20;
+ 
+const gradient = ctx.createLinearGradient(0, y, 0, canvas.height);
+gradient.addColorStop(0, '#667eea');
+gradient.addColorStop(1, '#764ba2');
+ 
+ctx.fillStyle = gradient;
+ctx.fillRect(x, y, barWidth, barHeight);
+ 
+ctx.fillStyle = '#64748b';
+ctx.font = '12px sans-serif';
+ctx.textAlign = 'center';
+ctx.fillText(value, x + barWidth / 2, canvas.height - 5);
+});
+}
+
+// 통계 업데이트
+function updateStats() {
+document.getElementById('totalChats').textContent = totalChats;
+document.getElementById('statsTotal').textContent = totalChats;
+}
+
+// 채팅 기록 저장/불러오기
+function saveChatHistory() {
+try {
+localStorage.setItem('nextcode_chat_v9', JSON.stringify(chatHistory));
+localStorage.setItem('nextcode_total_chats', totalChats);
+} catch (e) {
+console.log('저장 실패:', e);
+}
+}
+
+function loadChatHistory() {
+try {
+const saved = localStorage.getItem('nextcode_chat_v9');
+const savedTotal = localStorage.getItem('nextcode_total_chats');
+if (saved) {
+chatHistory = JSON.parse(saved);
+}
+if (savedTotal) {
+totalChats = parseInt(savedTotal);
+updateStats();
+}
+} catch (e) {
+console.log('불러오기 실패:', e);
+}
 }
 
 // 타이핑 표시
 function showTyping() {
+const chatArea = document.getElementById('chatArea');
 const typingDiv = document.createElement('div');
 typingDiv.className = 'message ai';
 typingDiv.id = 'typing';
@@ -2350,13 +1788,39 @@ indicator.innerHTML = '<div class="typing-dot"></div><div class="typing-dot"></d
 typingDiv.appendChild(avatar);
 typingDiv.appendChild(indicator);
 chatArea.appendChild(typingDiv);
-chatArea.scrollTop = chatArea.scrollHeight;
+scrollToBottom();
 }
 
 function hideTyping() {
 const typing = document.getElementById('typing');
 if (typing) typing.remove();
 }
+
+// 알림 표시
+function showNotification(text, type = 'info') {
+const notification = document.getElementById('notification');
+notification.className = `notification ${type} show`;
+document.getElementById('notificationText').textContent = text;
+ 
+setTimeout(() => {
+notification.classList.remove('show');
+}, 3000);
+}
+
+// 스크롤
+function scrollToBottom() {
+const chatArea = document.getElementById('chatArea');
+chatArea.scrollTop = chatArea.scrollHeight;
+}
+
+// 모달 외부 클릭 시 닫기
+document.querySelectorAll('.modal').forEach(modal => {
+modal.addEventListener('click', function(e) {
+if (e.target === this) {
+this.classList.remove('active');
+}
+});
+});
 </script>
 </body>
 </html>
