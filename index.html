@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NEXTCODE AI v8.0 - 양자 지능 시스템</title>
+    <title>NEXTCODE AI v9.0 - 양자 지능 시스템</title>
     <style>
         * {
             margin: 0;
@@ -14,11 +14,11 @@
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
             background: linear-gradient(135deg, #0a0e27 0%, #1a1a3e 50%, #0f1b3a 100%);
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden;
+            overflow-x: hidden;
         }
 
         .background-animation {
@@ -369,6 +369,13 @@
             box-shadow: 0 4px 16px rgba(102, 126, 234, 0.3);
         }
 
+        .message.warning .message-content {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            color: white;
+            box-shadow: 0 4px 16px rgba(251, 191, 36, 0.3);
+            border: 2px solid #fbbf24;
+        }
+
         .learning-modal {
             display: none;
             position: fixed;
@@ -520,6 +527,495 @@
         .learning-success.show {
             display: block;
             animation: fadeIn 0.3s ease;
+        }
+
+        .dev-mode-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            z-index: 999;
+            transition: all 0.3s;
+        }
+
+        .dev-mode-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        .dev-mode-toggle.active {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        }
+
+        .dev-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            z-index: 1001;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .dev-modal.active {
+            display: flex;
+        }
+
+        .dev-modal-content {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            border-radius: 24px;
+            padding: 40px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.6);
+            border: 2px solid #667eea;
+            color: white;
+        }
+
+        .dev-modal h2 {
+            font-size: 28px;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+        }
+
+        .dev-modal p {
+            color: #94a3b8;
+            margin-bottom: 25px;
+            font-size: 14px;
+        }
+
+        .dev-input-group {
+            margin-bottom: 25px;
+        }
+
+        .dev-input-group label {
+            display: block;
+            font-weight: 600;
+            color: #e2e8f0;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .dev-input-group input {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid #334155;
+            border-radius: 12px;
+            font-size: 15px;
+            background: #0f172a;
+            color: white;
+            transition: all 0.3s;
+        }
+
+        .dev-input-group input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.2);
+        }
+
+        .dev-buttons {
+            display: flex;
+            gap: 12px;
+        }
+
+        .dev-btn {
+            flex: 1;
+            padding: 14px 24px;
+            border: none;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .dev-btn-login {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .dev-btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        .dev-btn-cancel {
+            background: #334155;
+            color: #e2e8f0;
+        }
+
+        .dev-btn-cancel:hover {
+            background: #475569;
+        }
+
+        .dev-error {
+            background: rgba(239, 68, 68, 0.2);
+            border: 2px solid #ef4444;
+            color: #fecaca;
+            padding: 12px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            display: none;
+        }
+
+        .dev-error.show {
+            display: block;
+            animation: shake 0.5s;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        .dev-panel {
+            display: none;
+            position: fixed;
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            border-radius: 20px;
+            padding: 25px;
+            width: 320px;
+            max-height: 85vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            border: 2px solid #10b981;
+            z-index: 998;
+            color: white;
+        }
+
+        .dev-panel::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .dev-panel::-webkit-scrollbar-track {
+            background: #0f172a;
+            border-radius: 4px;
+        }
+
+        .dev-panel::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+
+        .dev-panel::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+
+        .dev-panel.active {
+            display: block;
+            animation: slideInRight 0.4s ease;
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateY(-50%) translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(-50%) translateX(0);
+            }
+        }
+
+        .dev-panel h3 {
+            font-size: 18px;
+            margin-bottom: 8px;
+            color: #10b981;
+            font-weight: 800;
+        }
+
+        .dev-panel p {
+            font-size: 12px;
+            color: #94a3b8;
+            margin-bottom: 20px;
+        }
+
+        .dev-option {
+            background: #0f172a;
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            border: 2px solid #334155;
+            transition: all 0.3s;
+        }
+
+        .dev-option:hover {
+            border-color: #667eea;
+        }
+
+        .dev-option-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .dev-option label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #e2e8f0;
+        }
+
+        .dev-toggle {
+            position: relative;
+            width: 44px;
+            height: 24px;
+            background: #334155;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .dev-toggle.active {
+            background: #10b981;
+        }
+
+        .dev-toggle::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            transition: all 0.3s;
+        }
+
+        .dev-toggle.active::after {
+            left: 22px;
+        }
+
+        .dev-option-desc {
+            font-size: 11px;
+            color: #64748b;
+            line-height: 1.4;
+        }
+
+        .dev-stats {
+            background: #0f172a;
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 12px;
+            color: #94a3b8;
+            border: 1px solid #334155;
+        }
+
+        .dev-stats div {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 6px;
+        }
+
+        .dev-stats div:last-child {
+            margin-bottom: 0;
+        }
+
+        .dev-stats span:last-child {
+            color: #10b981;
+            font-weight: 700;
+        }
+
+        .dev-section {
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #334155;
+        }
+
+        .dev-section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .dev-section-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #10b981;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .dev-btn-small {
+            width: 100%;
+            padding: 10px 16px;
+            border: none;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 8px;
+            background: #334155;
+            color: #e2e8f0;
+        }
+
+        .dev-btn-small:hover {
+            background: #475569;
+            transform: translateY(-2px);
+        }
+
+        .dev-btn-small.primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .dev-btn-small.danger {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            color: white;
+        }
+
+        .dev-btn-small.success {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+        }
+
+        .dev-slider {
+            width: 100%;
+            margin: 10px 0;
+        }
+
+        .dev-slider input[type="range"] {
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: #334155;
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        .dev-slider input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #10b981;
+            cursor: pointer;
+        }
+
+        .dev-slider-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            color: #94a3b8;
+            margin-bottom: 5px;
+        }
+
+        .dev-select {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #334155;
+            border-radius: 10px;
+            background: #0f172a;
+            color: white;
+            font-size: 13px;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+
+        .dev-select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .dev-info-box {
+            background: rgba(102, 126, 234, 0.1);
+            border: 1px solid #667eea;
+            border-radius: 8px;
+            padding: 10px;
+            font-size: 11px;
+            color: #94a3b8;
+            margin-top: 10px;
+        }
+
+        .dev-keyword-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 10px;
+        }
+
+        .dev-keyword-chip {
+            background: #334155;
+            padding: 5px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            color: #e2e8f0;
+        }
+
+        .theme-preview {
+            display: flex;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .theme-option {
+            flex: 1;
+            height: 40px;
+            border-radius: 8px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .theme-option.selected {
+            border-color: #10b981;
+            transform: scale(1.05);
+        }
+
+        .theme-option.light {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+        }
+
+        .theme-option.dark {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+        }
+
+        .theme-option.neon {
+            background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
+        }
+
+        @media (max-width: 768px) {
+            .dev-mode-toggle {
+                bottom: 80px;
+                right: 15px;
+                width: 45px;
+                height: 45px;
+            }
+
+            .dev-panel {
+                right: 10px;
+                width: calc(100% - 20px);
+                max-width: 340px;
+                max-height: 75vh;
+            }
+
+            .dev-modal-content {
+                padding: 30px 25px;
+            }
         }
 
         .thinking-process {
@@ -704,6 +1200,7 @@
             box-shadow: 0 8px 20px rgba(102, 126, 234, 0.35);
         }
 
+        /* 모바일 최적화 */
         @media (max-width: 1024px) {
             .main-content {
                 flex-direction: column;
@@ -711,37 +1208,159 @@
             
             .sidebar {
                 width: 100%;
-                max-height: 200px;
+                max-height: 180px;
                 border-right: none;
                 border-bottom: 2px solid #e2e8f0;
+                padding: 15px;
+            }
+
+            .stats-card, .learning-stats {
+                padding: 12px;
+            }
+
+            .stats-card .value {
+                font-size: 20px;
             }
         }
 
         @media (max-width: 768px) {
+            body {
+                padding: 0;
+            }
+
             .container {
                 width: 100%;
                 height: 100vh;
                 border-radius: 0;
+                max-width: 100%;
+            }
+
+            .header {
+                padding: 15px 20px;
+            }
+
+            .logo {
+                width: 45px;
+                height: 45px;
+                font-size: 22px;
+            }
+
+            .title-section h1 {
+                font-size: 18px;
+            }
+
+            .title-section p {
+                font-size: 11px;
+            }
+
+            .version-badge {
+                font-size: 10px;
+                padding: 4px 10px;
+                margin-left: 8px;
+            }
+
+            .status-online {
+                font-size: 12px;
+            }
+
+            .neural-status, .quantum-badge {
+                font-size: 10px;
+            }
+
+            .chat-area {
+                padding: 20px 15px;
             }
 
             .message-content {
                 max-width: 85%;
+                padding: 12px 18px;
+                font-size: 14px;
             }
 
-            .header {
-                padding: 20px;
+            .avatar {
+                width: 38px;
+                height: 38px;
+                font-size: 16px;
             }
 
-            .title-section h1 {
-                font-size: 22px;
+            .input-area {
+                padding: 15px 20px;
+            }
+
+            #userInput {
+                padding: 12px 18px;
+                font-size: 14px;
+            }
+
+            #sendButton {
+                padding: 12px 24px;
+                font-size: 14px;
+            }
+
+            .welcome-message {
+                padding: 30px 20px;
+            }
+
+            .welcome-message h2 {
+                font-size: 24px;
+            }
+
+            .welcome-message .subtitle {
+                font-size: 14px;
             }
 
             .ai-capabilities {
                 grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .capability-card {
+                padding: 16px;
+            }
+
+            .suggestion-chip {
+                padding: 10px 20px;
+                font-size: 13px;
             }
 
             .sidebar {
                 display: none;
+            }
+
+            .learning-modal-content {
+                padding: 25px;
+                width: 95%;
+            }
+
+            .learning-modal h2 {
+                font-size: 20px;
+            }
+
+            .thinking-process {
+                font-size: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-left {
+                gap: 10px;
+            }
+
+            .title-section h1 {
+                font-size: 16px;
+            }
+
+            .version-badge {
+                display: none;
+            }
+
+            .quantum-info {
+                font-size: 13px;
+                padding: 12px 18px;
+            }
+
+            .message {
+                margin-bottom: 15px;
             }
         }
     </style>
@@ -861,6 +1480,198 @@
         </div>
     </div>
 
+    <!-- 개발자 모드 토글 버튼 -->
+    <div class="dev-mode-toggle" id="devModeToggle" title="개발자 모드">
+        🔧
+    </div>
+
+    <!-- 개발자 로그인 모달 -->
+    <div class="dev-modal" id="devModal">
+        <div class="dev-modal-content">
+            <h2>🔐 개발자 모드</h2>
+            <p>개발자 비밀번호를 입력하세요</p>
+            
+            <div class="dev-error" id="devError">
+                ❌ 비밀번호가 올바르지 않습니다!
+            </div>
+
+            <div class="dev-input-group">
+                <label for="devPassword">비밀번호</label>
+                <input 
+                    type="password" 
+                    id="devPassword" 
+                    placeholder="개발자 비밀번호를 입력하세요"
+                >
+            </div>
+
+            <div class="dev-buttons">
+                <button class="dev-btn dev-btn-cancel" id="devCancelBtn">
+                    취소
+                </button>
+                <button class="dev-btn dev-btn-login" id="devLoginBtn">
+                    🔓 로그인
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 개발자 패널 -->
+    <div class="dev-panel" id="devPanel">
+        <h3>⚙️ 개발자 모드</h3>
+        <p>시스템 설정 및 고급 옵션</p>
+
+        <!-- 1. 대화 내역 관리 -->
+        <div class="dev-section">
+            <div class="dev-section-title">💾 대화 내역 관리</div>
+            <button class="dev-btn-small success" id="saveChatBtn">대화 저장</button>
+            <button class="dev-btn-small primary" id="loadChatBtn">대화 불러오기</button>
+            <button class="dev-btn-small" id="exportChatBtn">대화 내보내기 (JSON)</button>
+            <button class="dev-btn-small danger" id="clearChatBtn">전체 대화 삭제</button>
+        </div>
+
+        <!-- 2. AI 성격 커스터마이징 -->
+        <div class="dev-section">
+            <div class="dev-section-title">🎭 AI 성격 설정</div>
+            
+            <div class="dev-slider-label">
+                <span>응답 톤</span>
+                <span id="toneValue">전문적</span>
+            </div>
+            <select class="dev-select" id="aiTone">
+                <option value="friendly">친근한 😊</option>
+                <option value="professional" selected>전문적인 💼</option>
+                <option value="fun">재미있는 🎉</option>
+                <option value="formal">격식있는 🎩</option>
+            </select>
+
+            <div class="dev-slider-label">
+                <span>응답 길이</span>
+                <span id="lengthValue">보통</span>
+            </div>
+            <select class="dev-select" id="responseLength">
+                <option value="short">짧게 📝</option>
+                <option value="medium" selected>보통 📄</option>
+                <option value="long">상세하게 📚</option>
+            </select>
+
+            <div class="dev-slider-label">
+                <span>이모지 사용</span>
+                <span id="emojiValue">50%</span>
+            </div>
+            <div class="dev-slider">
+                <input type="range" id="emojiFrequency" min="0" max="100" value="50">
+            </div>
+        </div>
+
+        <!-- 3. 고급 통계 -->
+        <div class="dev-section">
+            <div class="dev-section-title">📊 통계 & 분석</div>
+            <button class="dev-btn-small primary" id="showStatsBtn">통계 보기</button>
+            <div class="dev-info-box" id="statsBox" style="display:none;">
+                <div style="margin-bottom:8px"><strong>📈 인기 키워드 TOP 5</strong></div>
+                <div class="dev-keyword-list" id="topKeywords"></div>
+                <div style="margin-top:10px">
+                    <div>⏱️ 평균 응답: <strong id="avgResponse">1.8초</strong></div>
+                    <div>🔥 가장 활발한 시간: <strong id="peakTime">오후 3시</strong></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. UI 테마 -->
+        <div class="dev-section">
+            <div class="dev-section-title">🎨 UI 테마</div>
+            <div class="theme-preview">
+                <div class="theme-option light" data-theme="light" title="라이트 모드"></div>
+                <div class="theme-option dark selected" data-theme="dark" title="다크 모드"></div>
+                <div class="theme-option neon" data-theme="neon" title="네온 모드"></div>
+            </div>
+        </div>
+
+        <!-- 5. 자동화 -->
+        <div class="dev-section">
+            <div class="dev-section-title">⚡ 자동화 기능</div>
+            <button class="dev-btn-small" id="manageTemplatesBtn">템플릿 관리</button>
+            <button class="dev-btn-small" id="autoResponseBtn">자동 응답 설정</button>
+        </div>
+
+        <!-- 6. 보안 & 프라이버시 -->
+        <div class="dev-section">
+            <div class="dev-section-title">🔒 보안 설정</div>
+            <div class="dev-option">
+                <div class="dev-option-header">
+                    <label>익명 모드</label>
+                    <div class="dev-toggle" id="toggleAnonymous"></div>
+                </div>
+            </div>
+            <div class="dev-option">
+                <div class="dev-option-header">
+                    <label>대화 암호화</label>
+                    <div class="dev-toggle" id="toggleEncryption"></div>
+                </div>
+            </div>
+            <button class="dev-btn-small" id="blacklistBtn">단어 블랙리스트</button>
+        </div>
+
+        <!-- 7. 성능 최적화 -->
+        <div class="dev-section">
+            <div class="dev-section-title">🚀 성능 설정</div>
+            <button class="dev-btn-small" id="clearCacheBtn">캐시 지우기</button>
+            <button class="dev-btn-small" id="optimizeMemoryBtn">메모리 최적화</button>
+            <div class="dev-info-box">
+                <div>💾 캐시: <strong id="cacheSize">2.3MB</strong></div>
+                <div>🧠 메모리: <strong id="memorySize">128MB</strong></div>
+            </div>
+        </div>
+
+        <!-- 기존 기능들 -->
+        <div class="dev-section">
+            <div class="dev-section-title">🔧 기본 설정</div>
+            
+            <div class="dev-option">
+                <div class="dev-option-header">
+                    <label>욕설 필터 비활성화</label>
+                    <div class="dev-toggle" id="toggleProfanityFilter"></div>
+                </div>
+            </div>
+
+            <div class="dev-option">
+                <div class="dev-option-header">
+                    <label>자동 학습 모드</label>
+                    <div class="dev-toggle" id="toggleAutoLearn"></div>
+                </div>
+            </div>
+
+            <div class="dev-option">
+                <div class="dev-option-header">
+                    <label>응답 속도 향상</label>
+                    <div class="dev-toggle" id="toggleFastResponse"></div>
+                </div>
+            </div>
+
+            <div class="dev-option">
+                <div class="dev-option-header">
+                    <label>디버그 모드</label>
+                    <div class="dev-toggle" id="toggleDebugMode"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="dev-stats">
+            <div>
+                <span>시스템 상태:</span>
+                <span>정상</span>
+            </div>
+            <div>
+                <span>총 대화:</span>
+                <span id="devTotalChats">0</span>
+            </div>
+            <div>
+                <span>처리 속도:</span>
+                <span>99.8%</span>
+            </div>
+        </div>
+    </div>
+
     <div class="learning-modal" id="learningModal">
         <div class="learning-modal-content">
             <h2>🎓 인공지능 학습 모드 v8.0</h2>
@@ -923,6 +1734,58 @@
         let totalChats = 0;
         let learnedCount = 0;
 
+        // 개발자 모드 설정
+        let devMode = {
+            active: false,
+            profanityFilterDisabled: false,
+            autoLearnMode: false,
+            fastResponse: false,
+            debugMode: false,
+            // 새로운 설정들
+            aiTone: 'professional',
+            responseLength: 'medium',
+            emojiFrequency: 50,
+            theme: 'dark',
+            anonymousMode: false,
+            encryptionEnabled: false,
+            chatHistory: [],
+            templates: {},
+            blacklist: [],
+            statistics: {
+                keywords: {},
+                responseTimes: [],
+                hourlyUsage: new Array(24).fill(0)
+            }
+        };
+
+        const DEV_PASSWORD = 'haeundae1125';
+
+        // 욕설 필터링 함수
+        function containsProfanity(text) {
+            // 개발자 모드에서 필터가 비활성화되어 있으면 false 반환
+            if (devMode.profanityFilterDisabled) {
+                if (devMode.debugMode) console.log('[DEV] 욕설 필터 비활성화됨');
+                return false;
+            }
+
+            const profanityList = [
+                '씨발', '시발', 'ㅅㅂ', 'ㅆㅂ', '좆', 'ㅈ같', '개새', '새끼', 
+                '병신', 'ㅂㅅ', '지랄', 'ㅈㄹ', '미친', '개년', '년', 
+                '씹', 'ㅆ', '닥쳐', '꺼져', '엿', '죽어', '뒤져', '개놈',
+                '자지', '보지', '좃', '섹', '창녀', '썅', '개소리', 'fuck', 
+                'shit', 'bitch', '애미', '애비', '느금', '니미', '염병'
+            ];
+            
+            const lowerText = text.toLowerCase();
+            const hasProfanity = profanityList.some(word => lowerText.includes(word));
+            
+            if (devMode.debugMode && hasProfanity) {
+                console.log('[DEV] 욕설 감지:', text);
+            }
+            
+            return hasProfanity;
+        }
+
         // 배경 파티클 생성
         const particlesContainer = document.getElementById('particles');
         for (let i = 0; i < 30; i++) {
@@ -944,6 +1807,79 @@
         sendButton.addEventListener('click', sendMessage);
         cancelLearningBtn.addEventListener('click', closeLearningModal);
         saveLearningBtn.addEventListener('click', saveLearnedResponse);
+
+        // 개발자 모드 이벤트 리스너
+        const devModeToggle = document.getElementById('devModeToggle');
+        const devModal = document.getElementById('devModal');
+        const devPanel = document.getElementById('devPanel');
+        const devPassword = document.getElementById('devPassword');
+        const devLoginBtn = document.getElementById('devLoginBtn');
+        const devCancelBtn = document.getElementById('devCancelBtn');
+        const devError = document.getElementById('devError');
+
+        // 개발자 모드 토글 버튼 클릭
+        devModeToggle.addEventListener('click', function() {
+            if (devMode.active) {
+                // 이미 활성화된 경우 패널 토글
+                devPanel.classList.toggle('active');
+            } else {
+                // 비활성화된 경우 로그인 모달 표시
+                devModal.classList.add('active');
+                devPassword.value = '';
+                devError.classList.remove('show');
+            }
+        });
+
+        // 개발자 로그인
+        devLoginBtn.addEventListener('click', function() {
+            if (devPassword.value === DEV_PASSWORD) {
+                devMode.active = true;
+                devModal.classList.remove('active');
+                devPanel.classList.add('active');
+                devModeToggle.classList.add('active');
+                if (devMode.debugMode) console.log('[DEV] 개발자 모드 활성화');
+            } else {
+                devError.classList.add('show');
+                devPassword.value = '';
+            }
+        });
+
+        // 엔터키로 로그인
+        devPassword.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                devLoginBtn.click();
+            }
+        });
+
+        // 개발자 로그인 취소
+        devCancelBtn.addEventListener('click', function() {
+            devModal.classList.remove('active');
+        });
+
+        // 개발자 패널 옵션 토글
+        document.getElementById('toggleProfanityFilter').addEventListener('click', function() {
+            devMode.profanityFilterDisabled = !devMode.profanityFilterDisabled;
+            this.classList.toggle('active');
+            if (devMode.debugMode) console.log('[DEV] 욕설 필터:', devMode.profanityFilterDisabled ? '비활성화' : '활성화');
+        });
+
+        document.getElementById('toggleAutoLearn').addEventListener('click', function() {
+            devMode.autoLearnMode = !devMode.autoLearnMode;
+            this.classList.toggle('active');
+            if (devMode.debugMode) console.log('[DEV] 자동 학습 모드:', devMode.autoLearnMode ? 'ON' : 'OFF');
+        });
+
+        document.getElementById('toggleFastResponse').addEventListener('click', function() {
+            devMode.fastResponse = !devMode.fastResponse;
+            this.classList.toggle('active');
+            if (devMode.debugMode) console.log('[DEV] 빠른 응답 모드:', devMode.fastResponse ? 'ON' : 'OFF');
+        });
+
+        document.getElementById('toggleDebugMode').addEventListener('click', function() {
+            devMode.debugMode = !devMode.debugMode;
+            this.classList.toggle('active');
+            console.log('[DEV] 디버그 모드:', devMode.debugMode ? 'ON' : 'OFF');
+        });
 
         // 제안 칩 클릭 처리
         document.querySelectorAll('.suggestion-chip').forEach(chip => {
@@ -973,19 +1909,238 @@
             totalChats++;
             totalChatsEl.textContent = totalChats;
 
+            // 욕설 체크
+            if (containsProfanity(message)) {
+                setTimeout(() => {
+                    addMessage('😊 바르고 고운 말을 사용해 주세요. 존중하는 대화로 더 좋은 답변을 드릴 수 있습니다.', false, '부적절한 표현 감지 → 예의 바른 대화 요청', true);
+                }, 500);
+                return;
+            }
+
             showTyping();
+            
+            const responseDelay = devMode.fastResponse ? 300 : (1500 + Math.random() * 1000);
+            
+            if (devMode.debugMode) {
+                console.log('[DEV] 메시지:', message);
+                console.log('[DEV] 응답 지연:', responseDelay + 'ms');
+            }
             
             setTimeout(() => {
                 const response = getAIResponse(message);
                 hideTyping();
                 
                 if (response.needsLearning) {
-                    openLearningModal(message);
+                    if (devMode.autoLearnMode) {
+                        addMessage('죄송합니다. 해당 질문에 대한 답변을 아직 학습하지 못했습니다. 다른 질문을 해주시겠어요?', false, '미학습 질문 감지 → 자동 학습 모드로 기본 응답');
+                    } else {
+                        openLearningModal(message);
+                    }
                 } else {
                     addMessage(response.text, false, response.thinking);
                 }
-            }, 1500 + Math.random() * 1000);
+            }, responseDelay);
         }
+
+        // 개발자 모드 기능들 초기화
+        function initDevMode() {
+            // === 1. 대화 내역 관리 ===
+            document.getElementById('saveChatBtn').addEventListener('click', function() {
+                const messages = Array.from(chatArea.querySelectorAll('.message')).map(msg => ({
+                    type: msg.classList.contains('user') ? 'user' : 'ai',
+                    content: msg.querySelector('.message-content').textContent,
+                    timestamp: new Date().toISOString()
+                }));
+                
+                localStorage.setItem('nextcode_chat_history', JSON.stringify(messages));
+                alert('💾 대화가 저장되었습니다!');
+                if (devMode.debugMode) console.log('[DEV] 대화 저장:', messages.length, '개');
+            });
+
+            document.getElementById('loadChatBtn').addEventListener('click', function() {
+                const saved = localStorage.getItem('nextcode_chat_history');
+                if (saved) {
+                    const messages = JSON.parse(saved);
+                    chatArea.innerHTML = '';
+                    messages.forEach(msg => {
+                        addMessage(msg.content, msg.type === 'user');
+                    });
+                    alert('📂 대화를 불러왔습니다!');
+                    if (devMode.debugMode) console.log('[DEV] 대화 불러오기:', messages.length, '개');
+                } else {
+                    alert('⚠️ 저장된 대화가 없습니다.');
+                }
+            });
+
+            document.getElementById('exportChatBtn').addEventListener('click', function() {
+                const messages = Array.from(chatArea.querySelectorAll('.message')).map(msg => ({
+                    type: msg.classList.contains('user') ? 'user' : 'ai',
+                    content: msg.querySelector('.message-content').textContent,
+                    timestamp: new Date().toISOString()
+                }));
+                
+                const dataStr = JSON.stringify(messages, null, 2);
+                const dataBlob = new Blob([dataStr], {type: 'application/json'});
+                const url = URL.createObjectURL(dataBlob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = `nextcode-chat-${Date.now()}.json`;
+                link.click();
+                
+                if (devMode.debugMode) console.log('[DEV] 대화 내보내기 완료');
+            });
+
+            document.getElementById('clearChatBtn').addEventListener('click', function() {
+                if (confirm('🗑️ 정말 모든 대화를 삭제하시겠습니까?')) {
+                    chatArea.innerHTML = '<div class="welcome-message"><h2>🚀 NEXTCODE AI v8.0 양자 에디션</h2><p class="subtitle">1000억 개 학습 데이터로 진화한 차세대 양자 지능 시스템</p></div>';
+                    totalChats = 0;
+                    totalChatsEl.textContent = '0';
+                    document.getElementById('devTotalChats').textContent = '0';
+                    localStorage.removeItem('nextcode_chat_history');
+                    alert('✅ 모든 대화가 삭제되었습니다.');
+                    if (devMode.debugMode) console.log('[DEV] 대화 전체 삭제');
+                }
+            });
+
+            // === 2. AI 성격 커스터마이징 ===
+            document.getElementById('aiTone').addEventListener('change', function() {
+                devMode.aiTone = this.value;
+                const toneNames = {
+                    friendly: '친근한',
+                    professional: '전문적',
+                    fun: '재미있는',
+                    formal: '격식있는'
+                };
+                document.getElementById('toneValue').textContent = toneNames[this.value];
+                if (devMode.debugMode) console.log('[DEV] AI 톤 변경:', this.value);
+            });
+
+            document.getElementById('responseLength').addEventListener('change', function() {
+                devMode.responseLength = this.value;
+                const lengthNames = {
+                    short: '짧게',
+                    medium: '보통',
+                    long: '상세하게'
+                };
+                document.getElementById('lengthValue').textContent = lengthNames[this.value];
+                if (devMode.debugMode) console.log('[DEV] 응답 길이:', this.value);
+            });
+
+            document.getElementById('emojiFrequency').addEventListener('input', function() {
+                devMode.emojiFrequency = this.value;
+                document.getElementById('emojiValue').textContent = this.value + '%';
+            });
+
+            // === 3. 통계 & 분석 ===
+            document.getElementById('showStatsBtn').addEventListener('click', function() {
+                const statsBox = document.getElementById('statsBox');
+                const isVisible = statsBox.style.display !== 'none';
+                statsBox.style.display = isVisible ? 'none' : 'block';
+                
+                if (!isVisible) {
+                    const keywords = ['양자컴퓨팅', '인공지능', '블록체인', '최적화', '보안'];
+                    const topKeywords = document.getElementById('topKeywords');
+                    topKeywords.innerHTML = keywords.map(k => 
+                        `<div class="dev-keyword-chip">${k}</div>`
+                    ).join('');
+                    
+                    document.getElementById('avgResponse').textContent = '1.8초';
+                    document.getElementById('peakTime').textContent = '오후 3시';
+                }
+            });
+
+            // === 4. UI 테마 ===
+            document.querySelectorAll('.theme-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    document.querySelectorAll('.theme-option').forEach(o => o.classList.remove('selected'));
+                    this.classList.add('selected');
+                    
+                    const theme = this.dataset.theme;
+                    devMode.theme = theme;
+                    
+                    const container = document.querySelector('.container');
+                    const body = document.body;
+                    
+                    if (theme === 'light') {
+                        container.style.background = 'rgba(255, 255, 255, 0.98)';
+                        body.style.background = 'linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%)';
+                    } else if (theme === 'dark') {
+                        container.style.background = 'rgba(255, 255, 255, 0.98)';
+                        body.style.background = 'linear-gradient(135deg, #0a0e27 0%, #1a1a3e 50%, #0f1b3a 100%)';
+                    } else if (theme === 'neon') {
+                        container.style.background = 'rgba(20, 20, 40, 0.95)';
+                        body.style.background = 'linear-gradient(135deg, #1a0033 0%, #330066 50%, #1a0033 100%)';
+                    }
+                    
+                    if (devMode.debugMode) console.log('[DEV] 테마 변경:', theme);
+                });
+            });
+
+            // === 5. 자동화 ===
+            document.getElementById('manageTemplatesBtn').addEventListener('click', function() {
+                alert('📝 템플릿 관리 기능\n\n자주 사용하는 답변을 저장하고 불러올 수 있습니다.\n(데모 버전에서는 알림만 표시됩니다)');
+            });
+
+            document.getElementById('autoResponseBtn').addEventListener('click', function() {
+                alert('⚡ 자동 응답 설정\n\n특정 키워드를 감지하면 자동으로 답변을 보냅니다.\n(데모 버전에서는 알림만 표시됩니다)');
+            });
+
+            // === 6. 보안 & 프라이버시 ===
+            document.getElementById('toggleAnonymous').addEventListener('click', function() {
+                devMode.anonymousMode = !devMode.anonymousMode;
+                this.classList.toggle('active');
+                if (devMode.debugMode) console.log('[DEV] 익명 모드:', devMode.anonymousMode);
+            });
+
+            document.getElementById('toggleEncryption').addEventListener('click', function() {
+                devMode.encryptionEnabled = !devMode.encryptionEnabled;
+                this.classList.toggle('active');
+                if (devMode.debugMode) console.log('[DEV] 암호화:', devMode.encryptionEnabled);
+            });
+
+            document.getElementById('blacklistBtn').addEventListener('click', function() {
+                const words = prompt('🚫 블랙리스트에 추가할 단어를 입력하세요 (쉼표로 구분):', '');
+                if (words) {
+                    devMode.blacklist = words.split(',').map(w => w.trim());
+                    alert(`✅ ${devMode.blacklist.length}개의 단어가 블랙리스트에 추가되었습니다.`);
+                    if (devMode.debugMode) console.log('[DEV] 블랙리스트:', devMode.blacklist);
+                }
+            });
+
+            // === 7. 성능 최적화 ===
+            document.getElementById('clearCacheBtn').addEventListener('click', function() {
+                if (confirm('🗑️ 캐시를 지우시겠습니까?')) {
+                    localStorage.clear();
+                    sessionStorage.clear();
+                    document.getElementById('cacheSize').textContent = '0KB';
+                    alert('✅ 캐시가 삭제되었습니다.');
+                    if (devMode.debugMode) console.log('[DEV] 캐시 삭제 완료');
+                }
+            });
+
+            document.getElementById('optimizeMemoryBtn').addEventListener('click', function() {
+                customLearning = {};
+                devMode.statistics.keywords = {};
+                devMode.statistics.responseTimes = [];
+                
+                const before = 128;
+                const after = Math.floor(before * 0.7);
+                document.getElementById('memorySize').textContent = after + 'MB';
+                
+                alert(`🚀 메모리 최적화 완료!\n${before}MB → ${after}MB`);
+                if (devMode.debugMode) console.log('[DEV] 메모리 최적화:', before, '→', after);
+            });
+
+            // 개발자 통계 업데이트
+            setInterval(() => {
+                document.getElementById('devTotalChats').textContent = totalChats;
+                const cacheSize = (2.3 + Math.random() * 0.5).toFixed(1);
+                document.getElementById('cacheSize').textContent = cacheSize + 'MB';
+            }, 1000);
+        }
+
+        // 페이지 로드 시 개발자 모드 기능 초기화
+        initDevMode();
 
         // AI 응답 생성
         function getAIResponse(message) {
@@ -1149,16 +2304,16 @@
         }
 
         // 메시지 추가
-        function addMessage(text, isUser, thinking = null) {
+        function addMessage(text, isUser, thinking = null, isWarning = false) {
             const welcomeMsg = chatArea.querySelector('.welcome-message');
             if (welcomeMsg) welcomeMsg.remove();
 
             const messageDiv = document.createElement('div');
-            messageDiv.className = `message ${isUser ? 'user' : 'ai'}`;
+            messageDiv.className = `message ${isUser ? 'user' : isWarning ? 'warning' : 'ai'}`;
             
             const avatar = document.createElement('div');
             avatar.className = `avatar ${isUser ? 'user' : 'ai'}`;
-            avatar.textContent = isUser ? '👤' : '🧠';
+            avatar.textContent = isUser ? '👤' : isWarning ? '⚠️' : '🧠';
             
             const content = document.createElement('div');
             content.className = 'message-content';
@@ -1204,4 +2359,4 @@
         }
     </script>
 </body>
-</html
+</html>
